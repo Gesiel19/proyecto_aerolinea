@@ -1,0 +1,54 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.container {
+    width: 80%;
+    height: 55%;
+    display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: purple;
+
+   position: absolute;
+   
+
+
+
+
+    figure {
+        width: 800px;
+        height: 600px;
+        // background-color: aqua;
+
+    }
+
+    
+    figure img {
+        // position: absolute;
+        width: 100%;
+        border-radius: 10px;
+        height: 100%;
+        // justify-content: flex-end;
+        // display: flex;
+        // background-color: black;
+    }
+
+    
+.form {
+
+    // position: relative;
+    display: flex;
+    width: 90%;
+    height: 90%;
+    // margin: 0 auto;
+    // background-color: yellow;
+
+}
+
+
+
+}
