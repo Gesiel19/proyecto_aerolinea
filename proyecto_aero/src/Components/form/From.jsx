@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import planeImage from "../../assest/bg-plane.jpeg"
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import "./FormStyle.scss"
+import { get} from "../../Services/GetFlights"
 
 import {
     FormControl,
@@ -23,7 +24,7 @@ import {
     TbPlaneTilt
 } from "react-icons/tb"
 
-import { MdBuild, MdCall } from "react-icons/md"
+// import { MdBuild, MdCall } from "react-icons/md"
 
 const validationSchema = Yup.object().shape({
     origen: Yup.string()
@@ -40,6 +41,19 @@ const validationSchema = Yup.object().shape({
 
 
 const Form = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
+
+    const [infoCities, handleCities] = useState([]);
+
+    const getCities = async() => {
+        const getInfoCities = await get('countriesInfo');
+        handleCities(getInfoCities);
+        console.log(getInfoCities);
+    }
+    
+
+    useEffect(() => {        
+        getCities();
+    }, [])
 
     const initialValues = {
         origen: '',
@@ -69,12 +83,12 @@ const Form = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
 
     return (<div className="container">
         <figure>
-            <img src={planeImage} alt="plane"  />
-          
+            <img src={planeImage} alt="plane" />
+
         </figure>
         <form onSubmit={formik.handleSubmit} className="form">
-            <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" w="500px">
-                <FormControl w="25%" >
+            <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={4}>
+                <FormControl>
                     <legend> Busca un nuevo destino y comienza la aventura</legend>
                 </FormControl>
                 {/* <FormControl w="25%" > */}
@@ -89,6 +103,12 @@ const Form = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
                     <select {...formik.getFieldProps('origen')}>
 
                         <option> Origen </option>
+                        {infoCities.length &&
+                            infoCities.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.country}
+                                </option>
+                            ))}
                     </select>
                     {/* {formik.touched.origen && formik.errors.origen && <div>{formik.errors.origen}</div>} */}
                     <FormErrorMessage>{formik.touched.origen && formik.errors.origen && <div>{formik.errors.origen}</div>}</FormErrorMessage>
@@ -100,13 +120,18 @@ const Form = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
                     <select>
                         <option {...formik.getFieldProps('destino')}> Selecciona un destino </option>
                         {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
-
+                        {infoCities.length &&
+                            infoCities.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.country}
+                                </option>
+                            ))}
 
                     </select>
                     {formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}
                 </Stack>
 
-                <Stack direction='row' spacing={4}>
+                <Stack direction='row' spacing={4} w="85%">
                     <Input type="date" placeholder="Salida" {...formik.getFieldProps('salida')} />
                     {/* {formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>} */}
                     {/* <FormErrorMessage>{formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>}</FormErrorMessage> */}
@@ -121,24 +146,24 @@ const Form = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
 
                 {/* {formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>} */}
 
-                
 
-                <Stack direction='row' spacing={4}>
-                    <FormLabel>Pasajeros</FormLabel>
-                    <select {...formik.getFieldProps('pasajeros')}>
+                <FormLabel>Pasajeros</FormLabel>
+                <Stack direction='colum' spacing={10} w="45%">
+                    
+                    <select {...formik.getFieldProps('pasajeros')} w="45%" >
 
 
-                        <option> 1 </option>
+                        <option > 1 </option>
                     </select>
                     {formik.touched.pasajeros && formik.errors.pasajeros && <div>{formik.errors.pasajeros}</div>}
                     {/* <FormErrorMessage>{formik.touched.pasajeros&& formik.errors.pasajeros&& <div>{formik.errors.pasajeros}</div>}</FormErrorMessage> */}
-                   
 
 
-                    <Input placeholder="Tienes un código promoción" />
+
+                    <Input placeholder="Tienes un código de promoción"  w="610px" />
                 </Stack>
 
-                <Button type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline'>
+                <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline'>
                     <figure>
                         <img>
                         </img>

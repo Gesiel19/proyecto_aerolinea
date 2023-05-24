@@ -1,3 +1,4 @@
+@import "../GlobalStyled/globalStyled.scss";
 * {
     padding: 0;
     margin: 0;
@@ -6,49 +7,57 @@
 
 
 .container {
-    width: 80%;
-    height: 55%;
+    padding: 10% 5% 2% 15%;
+    //     width: 80%;
+    //     height: 55%;
     display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: purple;
+    justify-content: center;
+    align-items: center;
+    //    background-color: rgb(13, 0, 128);
 
-   position: absolute;
-   
+    // //    position: absolute;
+
 
 
 
 
     figure {
-        width: 800px;
-        height: 600px;
+        width: 1000px;
+        // height: 600px;
         // background-color: aqua;
 
     }
-
-    
     figure img {
-        // position: absolute;
+        // //         // position: absolute;
         width: 100%;
-        border-radius: 10px;
-        height: 100%;
-        // justify-content: flex-end;
-        // display: flex;
-        // background-color: black;
+        border-radius: 8%;
+        //         height: 100%;
+        //         // justify-content: flex-end;
+        //         // display: flex;
+        //         // background-color: black;
     }
 
-    
-.form {
 
-    // position: relative;
-    display: flex;
-    width: 90%;
-    height: 90%;
-    // margin: 0 auto;
-    // background-color: yellow;
-
-}
-
-
+    .form {
+        // transform: translateX(-300px);
+        // transform: translateY(24px);
+        position: absolute;
+        top:520px;
+        left: 330px;
+        display: flex;
+        gap: 2%;
+        z-index: 3000;
+        //     height: 90%;
+        //     // margin: 0 auto;
+        background-color: rgb(255, 255, 255);
+        span{
+            background-color:$color-primary;
+        }
+        &__button{
+            width: 50px;
+            background-color:$color-primary;
+            @include button ($backgroundc:$color-primary, $colorletra: white, $pixel: 150px)
+        }
+    }
 
 }
