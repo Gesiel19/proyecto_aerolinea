@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import planeImage from "../../assest/bg-plane.jpeg"
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -12,9 +13,20 @@ import {
     Input,
     Flex,
     Button,
-    Stack
+    Stack,
+    useDisclosure
 
 } from '@chakra-ui/react'
+
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+  } from '@chakra-ui/react'
 
 // import{
 //    PlaneIcon
@@ -52,6 +64,12 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         getCities();
     }, [])
 
+    const navigateR = useNavigate();
+    const goTickets = () => {
+        navigateR("tickets")
+    }
+
+
     const initialValues = {
         origen: '',
         destino: '',
@@ -81,6 +99,9 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         setTipoDeVuelo(false)
     }
 
+  
+
+
     return (<div className="container">
         <figure>
             <img src={planeImage} alt="plane" />
@@ -88,7 +109,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         </figure>
         <form onSubmit={formik.handleSubmit} className="form">
             <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={4}>
-                <FormControl>
+                <FormControl >
                     <legend> Busca un nuevo destino y comienza la aventura</legend>
                 </FormControl>
                 {/* <FormControl w="25%" > */}
@@ -163,12 +184,12 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                     <Input placeholder="Tienes un código de promoción"  w="610px" />
                 </Stack>
 
-                <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline'>
+                <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
                     <figure>
                         <img>
                         </img>
                     </figure>
-                    <span> Buscar vuelo
+                    <span > Buscar vuelo
                     </span>
                 </Button>
 
@@ -176,5 +197,10 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
             </Flex>
         </form>
     </div>)
+
 }
+
+
+
+
 export default FormRedondo;

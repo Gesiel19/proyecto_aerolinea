@@ -1,0 +1,213 @@
+*{
+    margin: 0;
+    padding: 0;
+  box-sizing: border-box;
+  
+
+  
+}
+
+.section_tickets{
+    height: 100vh;
+    width: auto;
+    display: flex;   
+    padding-top: 20px;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color:rgba(177, 175, 175, 0.199);
+    padding-right: 30px;
+    padding-left: 30px;
+
+    
+    
+}
+
+.seleccion_Vuelos{
+    width: 80%;
+    height: auto;
+    margin-right: -80px;
+   
+}
+
+
+
+
+
+
+.title__Vuelos{
+  
+    margin-top: 40px;
+
+    h2{
+        margin-bottom: 10px;
+    }
+
+   
+}
+
+.space{
+    margin-top: 60px;
+}
+
+
+.show_Vuelos {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    align-items: center;
+    
+
+    button {
+        width: 150px;
+        height: 40px;
+        border-radius: 17px;
+        border: 2px solid rgb(199, 77, 144);
+        color: rgb(199, 77, 144);
+        background-color: transparent;
+        cursor: pointer;
+        margin-right: -5px;
+    }
+    button:hover {
+        background-color: rgb(199, 77, 144);
+        border: none;
+        color: #fff;
+    }
+
+    h2{
+        font-size: 24px;
+        font-weight: 600;
+            
+    }
+
+}
+
+
+
+.equipaje {
+    background-color: rgb(252, 252, 252);
+    display: flex;
+    width: 80%;
+    height: 150px;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    margin-left: 30px;
+    margin-top: 10px;
+    
+
+    
+   
+
+    .icon{
+        width: 20px;
+       
+    
+    }
+
+    button {
+        width: 140px;
+        height: 90px;
+        padding: 10px;
+        font-size: 0.85em;
+        background-color: transparent;
+        border: 1px solid  gray;
+        line-height: 1.5em;
+        text-align: center;
+        cursor: pointer;
+      
+    
+        img{
+        margin-left: 50px;
+            margin-bottom: 5px;
+            
+        }
+
+      
+
+        span {
+            font-weight: bold;
+        }
+    }
+    
+    button:hover {
+        background-color: rgb(199, 77, 144);
+        border: none;
+        color: #fff;
+    }
+    
+}
+
+
+
+// .button__return{
+//     border:13x solid rgb(199, 77, 144)
+// }
+
+
+.select {
+    margin-left: 30px;
+    font-weight: bold;
+}
+.hora{
+    font-size: 18px;
+    font-weight: bold;
+    
+    
+}
+
+.my__reversation{
+    h3{
+        margin-top: 40px;
+        margin-bottom: 0;
+        font-weight: 500;
+
+    }
+
+    h4{
+        margin-top: 10px;
+        font-weight: 500;
+    }
+}
+.reservation{
+    border-radius: 10px;
+    width: 280px;
+    padding: 10px;
+    background-color: #fff;
+    margin-right: 40px;
+    margin-top: -20px;
+    
+
+   
+  
+
+}
+.costo__vuelos{
+    border-radius: 10px;
+    width: 280px;
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 10px;
+    margin-top: -20px;
+    line-height: 40px;
+
+    span{
+        font-size: 15px;
+      
+       
+    }
+
+    .totalTickets{
+        font-weight: 600;
+    }
+}
+.prueba{
+    display: flex;
+    gap: 10px;
+    text-align: center;
+
+    
+}
