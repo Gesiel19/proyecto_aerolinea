@@ -1,12 +1,12 @@
 import React from 'react'
 import { ShowFlights } from './Components/ShowFlights/ShowFlights'
-import Form from './Components/form/From';
+import FormRedondo from './Components/form/FormRedondo';
 
 
 export const App = () => {
   return (
     <div>
-        <Form />
+        <FormRedondo />
         <ShowFlights />
     </div>
   )

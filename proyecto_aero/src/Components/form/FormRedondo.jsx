@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import "./FormStyle.scss"
 import { get} from "../../Services/GetFlights"
-import { useNavigate } from "react-router-dom";
 
 import {
     FormControl,
@@ -25,30 +24,22 @@ import {
     TbPlaneTilt
 } from "react-icons/tb"
 
-
 // import { MdBuild, MdCall } from "react-icons/md"
 
 const validationSchema = Yup.object().shape({
     origen: Yup.string()
         .required('El origen es obligatorio'),
-    destino: Yup.string(),      
+    destino: Yup.string(),
     salida: Yup.date()
         .required('La Salida es obligatoria'),
-    // regreso: Yup.date()
-    //     .required('El Regreso es obligatoria'),
-    pasajeros: Yup.number()
-        .required('Los Pasajeros son requeridos'),
+    regreso: Yup.date(),
+    pasajeros: Yup.number(),
 });
 
 
-const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
+const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
 
     const [infoCities, handleCities] = useState([]);
-
-    const navigate = useNavigate();
-        const selectSencillo = () => {
-            navigate ("/viajeSencillo")
-        }
 
     const getCities = async() => {
         const getInfoCities = await get('countriesInfo');
@@ -65,66 +56,30 @@ const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
         origen: '',
         destino: '',
         salida: '',
-        pasajeros: '',
+        regreso: '',
+        pasajeros: 0,
     };
 
-    
+
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values) => {
+        onSubmit: (values) => {            
+            values.regreso = '';
+            console.log("values", values);
             handleVuelo(values);
         },
         enableReinitialize: true
     })
 
-    // const filterFligth =async(dataForm)=>{
-    //     const vuelosFiltrados= await searchFligths(dataForm)
-        
-    //     if (vuelosFiltrados.length) {
-    //       console.log(vuelosFiltrados);
-    //       sessionStorage.setItem('infoVuelos', JSON.stringify(vuelosFiltrados));
-      
-          
-    //       navigate('/vuelos')
-    //     }else{
-    //       Swal.fire(
-    //         'upps',
-    //         'No se encontraron vuelos!',
-    //         'error'
-    //       )
-    //     }
-    //   }
-    //   const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     console.log(dataForm);
-    //     if (
-    //       dataForm.origen !== "" &&
-    //       dataForm.destino !== "" &&
-    //       dataForm.salidaDate !== "" &&
-    //       dataForm.regresoDate !== "" 
-         
-    //     ) {
-    //       console.log("se puede continuar");
-    //       await filterFligth(dataForm)
-    //     } else {
-    //       console.log("llene los datos porfavor");
-    //     }
-    //   };
-  
+    const [tipoDeVuelo, setTipoDeVuelo] = useState(false);
 
-
-
-
-
-
-    // const [tipoDeVuelo, setTipoDeVuelo] = useState(false);
-    // const selectVueloSencillo = () => {
-    //     setTipoDeVuelo(true)
-    // }
-    // const selectVueloRedondo = () => {
-    //     setTipoDeVuelo(false)
-    // }
+    const selectVueloSencillo = () => {
+        setTipoDeVuelo(true)
+    }
+    const selectVueloRedondo = () => {
+        setTipoDeVuelo(false)
+    }
 
     return (<div className="container">
         <figure>
@@ -140,17 +95,17 @@ const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
                 <FormLabel>Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
                 <Stack direction='row' spacing={4}>
 
-                    <span onClick={selectSencillo}>Viaje sencillo </span>
-                    <span >Viaje redondo</span>
+                    <span onClick={selectVueloSencillo} >Viaje sencillo </span>
+                    <span onClick={selectVueloRedondo}>Viaje redondo</span>
                 </Stack>
 
                 <Stack direction='row' spacing={4}>
-                    <select {...formik.getFieldProps('origen')}>
+                    <select value={formik.values.origen} onChange={formik.handleChange} name="origen">
 
                         <option> Origen </option>
                         {infoCities.length &&
                             infoCities.map((item) => (
-                                <option key={item.id} value={item.id}>
+                                <option key={ `origin${item.id}`} value={item.id}>
                                     {item.country}
                                 </option>
                             ))}
@@ -162,12 +117,12 @@ const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
 
                     {/* <FormControl w="25%"> */}
 
-                    <select>
-                        <option {...formik.getFieldProps('destino')}> Selecciona un destino </option>
+                    <select value={formik.values.destino} onChange={formik.handleChange} name="destino">
+                        <option> Selecciona un destino </option>
                         {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
                         {infoCities.length &&
                             infoCities.map((item) => (
-                                <option key={item.id} value={item.id}>
+                                <option key={`destino${item.id}`} value={item.id}>
                                     {item.country}
                                 </option>
                             ))}
@@ -177,12 +132,12 @@ const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
                 </Stack>
 
                 <Stack direction='row' spacing={4} w="85%">
-                    <Input type="date" placeholder="Salida" {...formik.getFieldProps('salida')} />
+                    <Input type="date" placeholder="Salida" value={formik.values.salida} onChange={formik.handleChange} name="salida" />
                     {/* {formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>} */}
                     {/* <FormErrorMessage>{formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>}</FormErrorMessage> */}
 
 
-                    {/* <Input type="date" disabled={tipoDeVuelo} placeholder="Regreso"{...formik.getFieldProps('regreso')} /> */}
+                    <Input type="date" value={tipoDeVuelo? '': formik.values.regreso} onChange={formik.handleChange} disabled={tipoDeVuelo} placeholder="Regreso" name="regreso"/>
 
                     <FormErrorMessage>{formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>}</FormErrorMessage>
 
@@ -195,10 +150,10 @@ const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
                 <FormLabel>Pasajeros</FormLabel>
                 <Stack direction='colum' spacing={10} w="45%">
                     
-                    <select {...formik.getFieldProps('pasajeros')} w="45%" >
-
-
-                        <option > 1 </option>
+                    <select value={formik.values.pasajeros} onChange={formik.handleChange} w="45%" name="pasajeros">
+                        <option value="1"> 1 </option>
+                        <option value="2"> 2 </option>
+                        <option value="3"> 3 </option>
                     </select>
                     {formik.touched.pasajeros && formik.errors.pasajeros && <div>{formik.errors.pasajeros}</div>}
                     {/* <FormErrorMessage>{formik.touched.pasajeros&& formik.errors.pasajeros&& <div>{formik.errors.pasajeros}</div>}</FormErrorMessage> */}
@@ -222,4 +177,4 @@ const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
         </form>
     </div>)
 }
-export default Form;
+export default FormRedondo;
