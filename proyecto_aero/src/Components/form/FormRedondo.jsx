@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import planeImage from "../../assest/bg-plane.jpeg"
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import "./FormStyle.scss"
-import { get} from "../../Services/GetFlights"
+import "./FormStyle.scss";
+import { get } from "../../Services/GetFlights";
+import Swal from "sweetalert2";
 
 import {
     FormControl,
@@ -26,7 +27,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react'
 
 // import{
 //    PlaneIcon
@@ -49,18 +50,18 @@ const validationSchema = Yup.object().shape({
 });
 
 
-const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
+const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}) => {
 
     const [infoCities, handleCities] = useState([]);
 
-    const getCities = async() => {
+    const getCities = async () => {
         const getInfoCities = await get('countriesInfo');
         handleCities(getInfoCities);
         console.log(getInfoCities);
     }
-    
 
-    useEffect(() => {        
+
+    useEffect(() => {
         getCities();
     }, [])
 
@@ -82,9 +83,24 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values) => {            
-            values.regreso = '';
+        onSubmit: (values) => {
+
+            var inputReturn = document.getElementById("inputR");
+
+            // Verifica si el elemento está deshabilitado
+            if (inputReturn.disabled) {
+                values.regreso = '';
+                // El elemento está deshabilitado
+                console.log("El elemento está deshabilitado");
+            } else {
+
+                // El elemento no está deshabilitado
+                console.log("El elemento no está deshabilitado");
+            }
+
             console.log("values", values);
+           sessionStorage.setItem('infoVuelos', JSON.stringify(values));
+           
             handleVuelo(values);
         },
         enableReinitialize: true
@@ -99,7 +115,59 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         setTipoDeVuelo(false)
     }
 
-  
+
+
+    const filterFligth = async (values) => {
+       
+        const vuelosFiltrados = await get("flightInformation")
+        
+        const getSession = JSON.parse(sessionStorage.getItem('infoVuelos'));
+        console.log(getSession);
+        if (getSession.length) {
+            
+                const resultado = vuelosFiltrados.some(item => {
+
+                    return item.Origin_country === getSession.origen;
+                });
+
+               
+            console.log(resultado);
+            
+            // if (vuelosFiltrados === ) {
+                
+            // }
+       
+
+
+            // navigate('/vuelos')
+        } else {
+            Swal.fire(
+                'upps',
+                'No se encontraron vuelos!',
+                'error'
+              )
+            
+        }
+    }
+
+    const handleSubmit = async () => {
+        // e.preventDefault();
+        console.log(initialValues);
+        if (
+            initialValues.origen !== "" &&
+            initialValues.destino !== "" &&
+            initialValues.salidaDate !== "" &&
+            initialValues.regresoDate !== "" 
+         
+        ) {
+          console.log("se puede continuar");
+          await filterFligth(initialValues)
+        } else {
+          console.log("llene los datos porfavor");
+        }
+      };
+      handleSubmit();
+
 
 
     return (<div className="container">
@@ -126,7 +194,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         <option> Origen </option>
                         {infoCities.length &&
                             infoCities.map((item) => (
-                                <option key={ `origin${item.id}`} value={item.id}>
+                                <option key={`origin${item.id}`} value={item.name}>
                                     {item.country}
                                 </option>
                             ))}
@@ -143,7 +211,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
                         {infoCities.length &&
                             infoCities.map((item) => (
-                                <option key={`destino${item.id}`} value={item.id}>
+                                <option key={`destino${item.id}`} value={item.name}>
                                     {item.country}
                                 </option>
                             ))}
@@ -158,7 +226,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                     {/* <FormErrorMessage>{formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>}</FormErrorMessage> */}
 
 
-                    <Input type="date" value={tipoDeVuelo? '': formik.values.regreso} onChange={formik.handleChange} disabled={tipoDeVuelo} placeholder="Regreso" name="regreso"/>
+                    <Input type="date" value={tipoDeVuelo ? '' : formik.values.regreso} onChange={formik.handleChange} disabled={tipoDeVuelo} placeholder="Regreso" name="regreso" id="inputR" />
 
                     <FormErrorMessage>{formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>}</FormErrorMessage>
 
@@ -170,7 +238,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
                 <FormLabel>Pasajeros</FormLabel>
                 <Stack direction='colum' spacing={10} w="45%">
-                    
+
                     <select value={formik.values.pasajeros} onChange={formik.handleChange} w="45%" name="pasajeros">
                         <option value="1"> 1 </option>
                         <option value="2"> 2 </option>
@@ -181,7 +249,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
 
 
-                    <Input placeholder="Tienes un código de promoción"  w="610px" />
+                    <Input placeholder="Tienes un código de promoción" w="610px" />
                 </Stack>
 
                 <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
