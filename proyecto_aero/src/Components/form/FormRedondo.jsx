@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import "./FormStyle.scss";
 import { get } from "../../Services/GetFlights";
 import Swal from "sweetalert2";
+import axios from 'axios';
 
 import {
     FormControl,
@@ -50,7 +51,7 @@ const validationSchema = Yup.object().shape({
 });
 
 
-const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}) => {
+const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
 
     const [infoCities, handleCities] = useState([]);
 
@@ -99,8 +100,8 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}
             }
 
             console.log("values", values);
-           sessionStorage.setItem('infoVuelos', JSON.stringify(values));
-           
+            sessionStorage.setItem('infoVuelos', JSON.stringify(values));
+
             handleVuelo(values);
         },
         enableReinitialize: true
@@ -117,56 +118,98 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}
 
 
 
-    const filterFligth = async (values) => {
-       
-        const vuelosFiltrados = await get("flightInformation")
-        
-        const getSession = JSON.parse(sessionStorage.getItem('infoVuelos'));
-        console.log(getSession);
-        if (getSession.length) {
-            
-                const resultado = vuelosFiltrados.some(item => {
 
-                    return item.Origin_country === getSession.origen;
+    async function compararInformacion() {
+        try {
+            const response = await axios.get('http://localhost:3000/flightInformation');
+            const data = response.data;
+            console.log(data);
+            
+            const storedFormValues = JSON.parse(sessionStorage.getItem('infoVuelos'));
+            console.log(storedFormValues);
+
+            if (storedFormValues) {
+                const resultado = data.some(item => {
+                    
+
+                    return  item.Origin_country === storedFormValues.origen,
+                    item.Destination_country === storedFormValues.destino,
+                    item.Departure_date === storedFormValues.salida,
+                    item.Arrival_date === storedFormValues.regreso;
                 });
 
-               
-            console.log(resultado);
-            
-            // if (vuelosFiltrados === ) {
-                
-            // }
-       
-
-
-            // navigate('/vuelos')
-        } else {
-            Swal.fire(
-                'upps',
-                'No se encontraron vuelos!',
-                'error'
-              )
-            
+                if (resultado) {
+                    console.log('La información coincide');
+                } else {
+                    console.log('La información no coincide');
+                }
+            }
+        } catch (error) {
+            console.error('Error al cargar el archivo JSON:', error);
         }
     }
 
-    const handleSubmit = async () => {
-        // e.preventDefault();
-        console.log(initialValues);
-        if (
-            initialValues.origen !== "" &&
-            initialValues.destino !== "" &&
-            initialValues.salidaDate !== "" &&
-            initialValues.regresoDate !== "" 
-         
-        ) {
-          console.log("se puede continuar");
-          await filterFligth(initialValues)
-        } else {
-          console.log("llene los datos porfavor");
-        }
-      };
-      handleSubmit();
+    compararInformacion();
+
+
+
+
+    // const filterFligth = async (values) => {
+
+    //     const vuelosFiltrados = await get("flightInformation")
+
+    //     const getSession = JSON.parse(sessionStorage.getItem('infoVuelos'));
+    //     console.log(getSession);
+
+
+    //     if (getSession.length) {
+
+    //             const resultado = vuelosFiltrados.some(item => {
+
+    //                 return item.Origin_country === getSession.origen;
+    //             });
+
+
+    //         console.log(resultado);
+
+    // if (resultado === ) {
+
+    // }
+
+
+
+    // navigate('/vuelos')
+    //     } else {
+    //         Swal.fire(
+    //             'upps',
+    //             'No se encontraron vuelos!',
+    //             'error'
+    //           )
+
+    //     }
+    // }
+
+    // filterFligth();
+
+
+
+    // const handleSubmit = async () => {
+    //     // e.preventDefault();
+    //     console.log(initialValues);
+    //     if (
+    //         initialValues.origen !== "" &&
+    //         initialValues.destino !== "" &&
+    //         initialValues.salidaDate !== "" &&
+    //         initialValues.regresoDate !== ""
+
+    //     ) {
+    //         console.log("se puede continuar");
+    //         await filterFligth(initialValues)
+    //     } else {
+    //         console.log("llene los datos porfavor");
+    //     }
+    // };
+    // handleSubmit();
 
 
 
