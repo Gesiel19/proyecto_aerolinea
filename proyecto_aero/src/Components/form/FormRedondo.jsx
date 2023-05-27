@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import "./FormStyle.scss";
 import { get } from "../../Services/GetFlights";
 import Swal from "sweetalert2";
+import { SimpleGrid, Heading, Text, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 
 import {
     FormControl,
@@ -39,6 +40,35 @@ import {
 
 // import { MdBuild, MdCall } from "react-icons/md"
 
+const showPeople = [
+    {
+        name: "Adulto",
+        price: "100%",
+        number: 0
+    },
+    {
+        name: "Niños",
+        price: "50%",
+        number: 0
+    },
+    {
+        name: "Bebes",
+        price: "20%",
+        number: 0
+    }
+]
+const selectPeople = () => {
+    const { people, setPeople } = useState(passagers);
+
+    const handleMinus = (index) => {
+        const peopleCopy = [...people]
+        peopleCopy[index].number--;
+        setPeople([...peopleCopy]);
+    }
+    // const handlePluss = (index) => {
+    //     if ()
+    // }
+}
 const validationSchema = Yup.object().shape({
     origen: Yup.string()
         .required('El origen es obligatorio'),
@@ -50,7 +80,7 @@ const validationSchema = Yup.object().shape({
 });
 
 
-const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}) => {
+const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
 
     const [infoCities, handleCities] = useState([]);
 
@@ -99,8 +129,8 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}
             }
 
             console.log("values", values);
-           sessionStorage.setItem('infoVuelos', JSON.stringify(values));
-           
+            sessionStorage.setItem('infoVuelos', JSON.stringify(values));
+
             handleVuelo(values);
         },
         enableReinitialize: true
@@ -118,25 +148,25 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}
 
 
     const filterFligth = async (values) => {
-       
+
         const vuelosFiltrados = await get("flightInformation")
-        
+
         const getSession = JSON.parse(sessionStorage.getItem('infoVuelos'));
         console.log(getSession);
         if (getSession.length) {
-            
-                const resultado = vuelosFiltrados.some(item => {
 
-                    return item.Origin_country === getSession.origen;
-                });
+            const resultado = vuelosFiltrados.some(item => {
 
-               
+                return item.Origin_country === getSession.origen;
+            });
+
+
             console.log(resultado);
-            
+
             // if (vuelosFiltrados === ) {
-                
+
             // }
-       
+
 
 
             // navigate('/vuelos')
@@ -145,8 +175,8 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}
                 'upps',
                 'No se encontraron vuelos!',
                 'error'
-              )
-            
+            )
+
         }
     }
 
@@ -157,114 +187,181 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo}
             initialValues.origen !== "" &&
             initialValues.destino !== "" &&
             initialValues.salidaDate !== "" &&
-            initialValues.regresoDate !== "" 
-         
+            initialValues.regresoDate !== ""
+
         ) {
-          console.log("se puede continuar");
-          await filterFligth(initialValues)
+            console.log("se puede continuar");
+            await filterFligth(initialValues)
         } else {
-          console.log("llene los datos porfavor");
+            console.log("llene los datos porfavor");
         }
-      };
-      handleSubmit();
+    };
+    handleSubmit();
 
 
 
-    return (<div className="container">
-        <figure>
-            <img src={planeImage} alt="plane" />
-
-        </figure>
-        <form onSubmit={formik.handleSubmit} className="form">
-            <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={4}>
-                <FormControl >
-                    <legend> Busca un nuevo destino y comienza la aventura</legend>
-                </FormControl>
-                {/* <FormControl w="25%" > */}
-                <FormLabel>Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
-                <Stack direction='row' spacing={4}>
-
-                    <span onClick={selectVueloSencillo} >Viaje sencillo </span>
-                    <span onClick={selectVueloRedondo}>Viaje redondo</span>
-                </Stack>
-
-                <Stack direction='row' spacing={4}>
-                    <select value={formik.values.origen} onChange={formik.handleChange} name="origen">
-
-                        <option> Origen </option>
-                        {infoCities.length &&
-                            infoCities.map((item) => (
-                                <option key={`origin${item.id}`} value={item.name}>
-                                    {item.country}
-                                </option>
-                            ))}
-                    </select>
-                    {/* {formik.touched.origen && formik.errors.origen && <div>{formik.errors.origen}</div>} */}
-                    <FormErrorMessage>{formik.touched.origen && formik.errors.origen && <div>{formik.errors.origen}</div>}</FormErrorMessage>
-                    {/* </FormControl> */}
+    return (
+        <div className="mainHome">
+            <section className="mainHome__containerForm">
 
 
-                    {/* <FormControl w="25%"> */}
+                <figure >
+                    <img src={planeImage} alt="plane" />
 
-                    <select value={formik.values.destino} onChange={formik.handleChange} name="destino">
-                        <option> Selecciona un destino </option>
-                        {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
-                        {infoCities.length &&
-                            infoCities.map((item) => (
-                                <option key={`destino${item.id}`} value={item.name}>
-                                    {item.country}
-                                </option>
-                            ))}
+                </figure>
+                <form onSubmit={formik.handleSubmit} className="form">
+                    <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={4}>
+                        <FormControl >
+                            <legend> Busca un nuevo destino y comienza la aventura</legend>
+                        </FormControl>
+                        {/* <FormControl w="25%" > */}
+                        <FormLabel className ="form__label" >Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
+                        <Stack direction='row' spacing={4}>
 
-                    </select>
-                    {formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}
-                </Stack>
+                            <span onClick={selectVueloSencillo} >Viaje sencillo </span>
+                            <span onClick={selectVueloRedondo}>Viaje redondo</span>
+                        </Stack>
 
-                <Stack direction='row' spacing={4} w="85%">
-                    <Input type="date" placeholder="Salida" value={formik.values.salida} onChange={formik.handleChange} name="salida" />
-                    {/* {formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>} */}
-                    {/* <FormErrorMessage>{formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>}</FormErrorMessage> */}
+                        <Stack direction='row' spacing={4}>
+                            <select value={formik.values.origen} onChange={formik.handleChange} name="origen">
 
-
-                    <Input type="date" value={tipoDeVuelo ? '' : formik.values.regreso} onChange={formik.handleChange} disabled={tipoDeVuelo} placeholder="Regreso" name="regreso" id="inputR" />
-
-                    <FormErrorMessage>{formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>}</FormErrorMessage>
-
-                    {/* </FormControl> */}
-                </Stack>
-
-                {/* {formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>} */}
-
-
-                <FormLabel>Pasajeros</FormLabel>
-                <Stack direction='colum' spacing={10} w="45%">
-
-                    <select value={formik.values.pasajeros} onChange={formik.handleChange} w="45%" name="pasajeros">
-                        <option value="1"> 1 </option>
-                        <option value="2"> 2 </option>
-                        <option value="3"> 3 </option>
-                    </select>
-                    {formik.touched.pasajeros && formik.errors.pasajeros && <div>{formik.errors.pasajeros}</div>}
-                    {/* <FormErrorMessage>{formik.touched.pasajeros&& formik.errors.pasajeros&& <div>{formik.errors.pasajeros}</div>}</FormErrorMessage> */}
+                                <option> Origen </option>
+                                {infoCities.length &&
+                                    infoCities.map((item) => (
+                                        <option key={`origin${item.id}`} value={item.name}>
+                                            {item.country}
+                                        </option>
+                                    ))}
+                            </select>
+                            {/* {formik.touched.origen && formik.errors.origen && <div>{formik.errors.origen}</div>} */}
+                            <FormErrorMessage>{formik.touched.origen && formik.errors.origen && <div>{formik.errors.origen}</div>}</FormErrorMessage>
+                            {/* </FormControl> */}
 
 
+                            {/* <FormControl w="25%"> */}
 
-                    <Input placeholder="Tienes un código de promoción" w="610px" />
-                </Stack>
+                            <select value={formik.values.destino} onChange={formik.handleChange} name="destino">
+                                <option> Selecciona un destino </option>
+                                {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
+                                {infoCities.length &&
+                                    infoCities.map((item) => (
+                                        <option key={`destino${item.id}`} value={item.name}>
+                                            {item.country}
+                                        </option>
+                                    ))}
 
-                <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
-                    <figure>
-                        <img>
-                        </img>
-                    </figure>
-                    <span > Buscar vuelo
-                    </span>
-                </Button>
+                            </select>
+                            {formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}
+                        </Stack>
+
+                        <Stack direction='row' spacing={4} w="85%">
+                            <Input type="date" placeholder="Salida" value={formik.values.salida} onChange={formik.handleChange} name="salida" />
+                            {/* {formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>} */}
+                            {/* <FormErrorMessage>{formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>}</FormErrorMessage> */}
 
 
-            </Flex>
-        </form>
-    </div>)
+                            <Input type="date" value={tipoDeVuelo ? '' : formik.values.regreso} onChange={formik.handleChange} disabled={tipoDeVuelo} placeholder="Regreso" name="regreso" id="inputR" />
+
+                            <FormErrorMessage>{formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>}</FormErrorMessage>
+
+                            {/* </FormControl> */}
+                        </Stack>
+
+                        {/* {formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>} */}
+
+
+                        <FormLabel>Pasajeros</FormLabel>
+                        <Stack direction='colum' spacing={10} w="45%">
+
+                            <select value={formik.values.pasajeros} onChange={formik.handleChange} w="45%" name="pasajeros">
+                                <option value="1"> 1 </option>
+                                <option value="2"> 2 </option>
+                                <option value="3"> 3 </option>
+                            </select>
+                            <div>
+                                {/* <h5> Adultos </h5>
+                                <section></section>
+                            </div>
+                            <div>
+                                <h5> Niños </h5>
+                                <section></section>
+                            </div>
+                            <div>
+                                <h5> Bebes </h5>
+                                <section></section> */}
+                                {
+                                    people.length && (people.map((item, index) => (
+                                        <div key={index}>
+                                            <h5> {item.name} </h5>
+                                            <section>
+                                                <span> {`${item.price.toLocaleString()}`}</span>
+                                                <button> - </button>
+                                                <span> {item.number}</span>
+                                                <button> + </button>
+                                            </section>
+                                        </div>
+                                    )))
+                                }
+
+                                {formik.touched.pasajeros && formik.errors.pasajeros && <div>{formik.errors.pasajeros}</div>}
+                                {/* <FormErrorMessage>{formik.touched.pasajeros&& formik.errors.pasajeros&& <div>{formik.errors.pasajeros}</div>}</FormErrorMessage> */}
+
+
+                            </div>
+                                <Input placeholder="Tienes un código de promoción" w="610px" />
+                        </Stack>
+
+                        <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
+                            <figure>
+                                <img>
+                                </img>
+                            </figure>
+                            <span > Buscar vuelo
+                            </span>
+                        </Button>
+
+
+                    </Flex>
+                </form>
+            </section>
+            <section className="mainHome__containerCards">
+                <SimpleGrid spacing={4} w="100%" templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+                    <Card>
+                        <CardHeader>
+                            <Heading size='md'> Customer dashboard</Heading>
+                        </CardHeader>
+                        <CardBody>
+                            <Text>View a summary of all your customers over the last month.</Text>
+                        </CardBody>
+                        <CardFooter>
+                            <Button>View here</Button>
+                        </CardFooter>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <Heading size='md'> Customer dashboard</Heading>
+                        </CardHeader>
+                        <CardBody>
+                            <Text>View a summary of all your customers over the last month.</Text>
+                        </CardBody>
+                        <CardFooter>
+                            <Button>View here</Button>
+                        </CardFooter>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <Heading size='md'> Customer dashboard</Heading>
+                        </CardHeader>
+                        <CardBody>
+                            <Text>View a summary of all your customers over the last month.</Text>
+                        </CardBody>
+                        <CardFooter>
+                            <Button>View here</Button>
+                        </CardFooter>
+                    </Card>
+                </SimpleGrid>
+            </section>
+        </div>)
 
 }
 

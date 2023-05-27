@@ -1,63 +1,80 @@
 @import "../GlobalStyled/globalStyled.scss";
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-
-.container {
-    padding: 10% 5% 2% 15%;
-    //     width: 80%;
-    //     height: 55%;
+.mainHome {
+    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    //    background-color: rgb(13, 0, 128);
-
-    // //    position: absolute;
-
-
-
-
-
-    figure {
-        width: 1000px;
-        // height: 600px;
-        // background-color: aqua;
-
-    }
-    figure img {
-        // //         // position: absolute;
-        width: 100%;
-        border-radius: 8%;
-        //         height: 100%;
-        //         // justify-content: flex-end;
-        //         // display: flex;
-        //         // background-color: black;
-    }
-
-
-    .form {
-        // transform: translateX(-300px);
-        // transform: translateY(24px);
-        position: absolute;
-        top:520px;
-        left: 330px;
+    gap: 100px;
+    &__containerForm {
+        padding: 10% 5% 2% 15%;
+        width: 70%;
         display: flex;
-        gap: 2%;
-        z-index: 3000;
-        //     height: 90%;
-        //     // margin: 0 auto;
-        background-color: rgb(255, 255, 255);
-        span{
-            background-color:$color-primary;
-        }
-        &__button{
-            width: 50px;
-            background-color:$color-primary;
-            @include button ($backgroundc:$color-primary, $colorletra: white, $pixel: 150px)
-        }
-    }
+        //    background-color: rgb(13, 0, 128);
+        // position: absolute;
 
+        figure {
+            // height: 600px;
+            // background-color: aqua;
+
+        }
+
+        figure img {
+            // //         // position: absolute
+            border-radius: 5%;
+            //         height: 100%;
+            //         // justify-content: flex-end;
+            //         // display: flex;
+            //         // background-color: black;
+        }
+
+
+        .form {
+            // transform: translateX(-300px);
+            transform: translateY(-60%);
+            // position: absolute;
+            // top: 520px;
+            // left: 330px;
+            display: flex;
+            gap: 2%;
+            z-index: 3000;
+            padding: 2%;
+            border-radius: 5%;
+            width: 35%;
+            height: 35%;
+            //     height: 90%;
+            //     // margin: 0 auto;
+            background-color: rgb(220, 218, 226);
+            legend {
+                font-weight: bold;
+                font-size:x-large;
+                width: 50%;
+            }
+            
+
+            span {
+                background-color: $color-primary;
+            }
+
+            &__button {
+                width: 50px;
+                background-color: $color-primary;
+                @include button ($backgroundc: $color-primary, $colorletra: white, $pixel: 150px)
+            }
+        }
+
+    }
+    &__containerCards{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
 }
