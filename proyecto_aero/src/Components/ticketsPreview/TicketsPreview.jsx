@@ -6,22 +6,23 @@ import { get } from "../../Services/GetFlights"
 import maleta from "../../assest/maleta.png"
 
 const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
-
+    const getInfoVuelo = JSON.parse(sessionStorage.getItem('idVuelo'));
     const [infoFlight, handleFlight] = useState([]);
 
-    const getFlight = async () => {
-        const getInfoFlight = await get('endpointExample');
-        handleFlight(getInfoFlight);
-        console.log(getInfoFlight);
-    }
+    // const getFlight = async (id) => {
+    //     const getInfoFlight = await get('endpointExample');
+    //     handleFlight(getInfoFlight);
+    //     console.log(getInfoFlight);
+    // }
 
 
-    useEffect(() => {
-        getFlight();
-    }, [])
+    // useEffect(() => {
+    //     getFlight();
+    // }, [])
 
     const navigate = useNavigate();
     const returnHome = () => {
+        sessionStorage.clear()
         navigate("/")
     }
 
@@ -32,7 +33,7 @@ const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVue
             <section className='section_tickets'>
 
                 {
-                    infoFlight.map((item, index) => (
+                    getInfoVuelo.map((item, index) => (
 
                         <>
 
@@ -112,7 +113,7 @@ const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVue
                                 </div>
                                 <h4>Costo de vuelo</h4><br />
                                 <div className="costo__vuelos">
-                                    <span>Tarifa Base {item.Tarifa_Base_con_Dscto} </span> <br/>
+                                    <span>Tarifa Base {item.price} </span> <br/>
                                     <span>Descuento Promocional {item.Descuento_Pormocional} </span> <br/>
                                     <span>Tarifa Base con Descueento {item.Tarifa_Base_con_Dscto} </span> <br/>
                                     <span>IVA{item.iva} </span> <br/>

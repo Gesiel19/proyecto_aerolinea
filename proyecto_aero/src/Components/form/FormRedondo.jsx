@@ -52,7 +52,7 @@ const validationSchema = Yup.object().shape({
 
 
 const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
-
+    const navigate = useNavigate()
     const [infoCities, handleCities] = useState([]);
 
     const getCities = async () => {
@@ -60,7 +60,6 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         handleCities(getInfoCities);
         console.log(getInfoCities);
     }
-
 
     useEffect(() => {
         getCities();
@@ -124,24 +123,39 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
             const response = await axios.get('http://localhost:3000/flightInformation');
             const data = response.data;
             console.log(data);
-            
+
             const storedFormValues = JSON.parse(sessionStorage.getItem('infoVuelos'));
             console.log(storedFormValues);
 
             if (storedFormValues) {
-                const resultado = data.some(item => {
-                    
-
-                    return  item.Origin_country === storedFormValues.origen,
-                    item.Destination_country === storedFormValues.destino,
-                    item.Departure_date === storedFormValues.salida,
-                    item.Arrival_date === storedFormValues.regreso;
+                const resultado = data.filter(item => {
+                    return (
+                        item.Origin_country === storedFormValues.origen &&
+                        item.Destination_country === storedFormValues.destino &&
+                        item.Departure_date === storedFormValues.salida &&
+                        item.Arrival_date === storedFormValues.regreso
+                    );
                 });
-
+               
                 if (resultado) {
+                    console.log(resultado);
                     console.log('La información coincide');
+                    Swal.fire(
+                        'excelente',
+                        'Vuelo encontrado!',
+                        'success'
+                    )
+                    sessionStorage.setItem('idVuelo', JSON.stringify(resultado));
+                    navigate('/tickets')
+
                 } else {
                     console.log('La información no coincide');
+                    sessionStorage.clear()
+                    Swal.fire(
+                        'upps',
+                        'No se encontraron vuelos!',
+                        'error'
+                    )
                 }
             }
         } catch (error) {
@@ -295,7 +309,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                     <Input placeholder="Tienes un código de promoción" w="610px" />
                 </Stack>
 
-                <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
+                <Button className="form__button" type="submit" disabled={formik.isSubmitting} onClick={compararInformacion} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
                     <figure>
                         <img>
                         </img>
