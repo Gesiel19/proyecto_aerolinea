@@ -13,6 +13,7 @@
     justify-content: center;
     align-items: center;
     gap: 100px;
+
     &__containerForm {
         padding: 10% 5% 2% 15%;
         width: 70%;
@@ -43,35 +44,69 @@
             // top: 520px;
             // left: 330px;
             display: flex;
-            gap: 2%;
+            gap: 3%;
             z-index: 3000;
-            padding: 2%;
+            padding: 0.5% 2%;
             border-radius: 5%;
             width: 35%;
-            height: 35%;
+            height: 40%;
             //     height: 90%;
             //     // margin: 0 auto;
             background-color: rgb(220, 218, 226);
+
             legend {
                 font-weight: bold;
-                font-size:x-large;
-                width: 50%;
+                font-size: x-large;
+                width: 60%;
             }
-            
+
+            &__label {
+                font-weight: lighter;
+            }
 
             span {
                 background-color: $color-primary;
             }
 
+            &__selectVuelo {
+                background-color: $color-secondary;
+                border-radius: 6%;
+                padding: 1%;
+
+                span {
+                    border-radius: 7%;
+                    padding: 1%;
+                }
+            }
+            &__selectCountry{
+                width: 80%;
+                height:20%;
+                margin-top: 0.5%;
+                .form__selectOrigin, .form__selectDestination{
+                    width: 50%;
+                }
+
+
+            }
+            &__inputsDate{
+                width: 80%;
+                margin-top: 0.5%;
+
+                .form__inputSalida, .form__inputRegreso{
+                    background-color: $color-secondary;
+                }
+                
+            }
+
             &__button {
-                width: 50px;
                 background-color: $color-primary;
-                @include button ($backgroundc: $color-primary, $colorletra: white, $pixel: 150px)
+                @include button ($backgroundc: $color-primary, $colorletra: white, $pixel: 50%)
             }
         }
 
     }
-    &__containerCards{
+
+    &__containerCards {
         display: flex;
         width: 100%;
         justify-content: space-around;

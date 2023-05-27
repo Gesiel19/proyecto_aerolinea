@@ -57,18 +57,18 @@ const showPeople = [
         number: 0
     }
 ]
-const selectPeople = () => {
-    const { people, setPeople } = useState(passagers);
+// const selectPeople = () => {
+//     const { people, setPeople } = useState(passagers);
 
-    const handleMinus = (index) => {
-        const peopleCopy = [...people]
-        peopleCopy[index].number--;
-        setPeople([...peopleCopy]);
-    }
+//     const handleMinus = (index) => {
+//         const peopleCopy = [...people]
+//         peopleCopy[index].number--;
+//         setPeople([...peopleCopy]);
+//     }
     // const handlePluss = (index) => {
     //     if ()
     // }
-}
+// }
 const validationSchema = Yup.object().shape({
     origen: Yup.string()
         .required('El origen es obligatorio'),
@@ -210,22 +210,22 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
                 </figure>
                 <form onSubmit={formik.handleSubmit} className="form">
-                    <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={4}>
+                    <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={10}>
                         <FormControl >
-                            <legend> Busca un nuevo destino y comienza la aventura</legend>
+                            <legend> Busca un nuevo destino y comienza la aventura. </legend>
                         </FormControl>
                         {/* <FormControl w="25%" > */}
                         <FormLabel className ="form__label" >Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
-                        <Stack direction='row' spacing={4}>
+                        <Stack className="form__selectVuelo" direction='row' spacing={7} w="50%" >
 
                             <span onClick={selectVueloSencillo} >Viaje sencillo </span>
                             <span onClick={selectVueloRedondo}>Viaje redondo</span>
                         </Stack>
 
-                        <Stack direction='row' spacing={4}>
-                            <select value={formik.values.origen} onChange={formik.handleChange} name="origen">
+                        <Stack direction='row' spacing={4} w="90%" className ="form__selectCountry">
+                            <select value={formik.values.origen} onChange={formik.handleChange} name="origen" className ="form__selectOrigin">
 
-                                <option> Origen </option>
+                                <option > Origen </option>
                                 {infoCities.length &&
                                     infoCities.map((item) => (
                                         <option key={`origin${item.id}`} value={item.name}>
@@ -240,7 +240,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
                             {/* <FormControl w="25%"> */}
 
-                            <select value={formik.values.destino} onChange={formik.handleChange} name="destino">
+                            <select value={formik.values.destino} onChange={formik.handleChange} name="destino" className ="form__selectDestination">
                                 <option> Selecciona un destino </option>
                                 {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
                                 {infoCities.length &&
@@ -254,13 +254,13 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             {formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}
                         </Stack>
 
-                        <Stack direction='row' spacing={4} w="85%">
-                            <Input type="date" placeholder="Salida" value={formik.values.salida} onChange={formik.handleChange} name="salida" />
+                        <Stack direction='row' spacing={4} w="85%" className ="form__inputsDate">
+                            <Input type="date" className ="form__inputSalida" placeholder="Salida" value={formik.values.salida} onChange={formik.handleChange} name="salida" />
                             {/* {formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>} */}
                             {/* <FormErrorMessage>{formik.touched.salida && formik.errors.salida && <div>{formik.errors.salida}</div>}</FormErrorMessage> */}
 
 
-                            <Input type="date" value={tipoDeVuelo ? '' : formik.values.regreso} onChange={formik.handleChange} disabled={tipoDeVuelo} placeholder="Regreso" name="regreso" id="inputR" />
+                            <Input type="date" className ="form__inputRegreso" value={tipoDeVuelo ? '' : formik.values.regreso} onChange={formik.handleChange} disabled={tipoDeVuelo} placeholder="Regreso" name="regreso" id="inputR" />
 
                             <FormErrorMessage>{formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>}</FormErrorMessage>
 
@@ -268,17 +268,14 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         </Stack>
 
                         {/* {formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>} */}
-
-
-                        <FormLabel>Pasajeros</FormLabel>
-                        <Stack direction='colum' spacing={10} w="45%">
-
-                            <select value={formik.values.pasajeros} onChange={formik.handleChange} w="45%" name="pasajeros">
+                        <Stack direction='row' spacing={4} w="90%">
+                            <select value={formik.values.pasajeros} onChange={formik.handleChange} w="40%" name="pasajeros">
+                                <option value="."> Pasajeros </option>
                                 <option value="1"> 1 </option>
                                 <option value="2"> 2 </option>
                                 <option value="3"> 3 </option>
                             </select>
-                            <div>
+                            {/* <div> */}
                                 {/* <h5> Adultos </h5>
                                 <section></section>
                             </div>
@@ -289,7 +286,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             <div>
                                 <h5> Bebes </h5>
                                 <section></section> */}
-                                {
+                                {/* {
                                     people.length && (people.map((item, index) => (
                                         <div key={index}>
                                             <h5> {item.name} </h5>
@@ -301,16 +298,13 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                                             </section>
                                         </div>
                                     )))
-                                }
-
+                                } */}
                                 {formik.touched.pasajeros && formik.errors.pasajeros && <div>{formik.errors.pasajeros}</div>}
                                 {/* <FormErrorMessage>{formik.touched.pasajeros&& formik.errors.pasajeros&& <div>{formik.errors.pasajeros}</div>}</FormErrorMessage> */}
-
-
-                            </div>
-                                <Input placeholder="Tienes un código de promoción" w="610px" />
+                            {/* </div>   */}
+                            <Input placeholder="Tienes un código de promoción" w="40%"/> 
                         </Stack>
-
+                        
                         <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
                             <figure>
                                 <img>
