@@ -24,6 +24,10 @@ const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVue
     const returnHome = () => {
         sessionStorage.clear()
         navigate("/")
+
+        const goSeatSelect = () => {
+            navigate ("seats")
+        }
     }
 
 
@@ -119,6 +123,7 @@ const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVue
                                     <span>IVA{item.iva} </span> <br/>
                                     <span className='totalTickets'>Total {item.Price} </span> 
                                 </div>
+                                <button onClick={returnHome}>Cambiar Vuelo</button>
                             </aside>
 
 

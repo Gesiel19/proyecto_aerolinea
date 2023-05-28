@@ -5,6 +5,7 @@ import Form from '../Components/form/From'
 import TicketsPreview from '../Components/ticketsPreview/TicketsPreview'
 import Modals from '../Components/modal/Modal'
 import {ShowFlights} from "../Components/ShowFlights/ShowFlights"
+import SeatSelection from '../Components/SeatSelection/SeatSelection'
 
 
 const Router = () => {
@@ -13,6 +14,7 @@ const Router = () => {
       <Routes>
         <Route path={"/"}  element={<FormRedondo/>} />
         <Route path={"tickets"}  element={<TicketsPreview />} />
+        <Route path={"seats"}  element={<SeatSelection/>} />
         <Route path={"modal"}  element={<Modals />} />
       </Routes>
     </BrowserRouter>
