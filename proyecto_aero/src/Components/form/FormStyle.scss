@@ -49,10 +49,9 @@
             padding: 0.5% 2%;
             border-radius: 5%;
             width: 35%;
-            height: 40%;
-            //     height: 90%;
-            //     // margin: 0 auto;
-            background-color: rgb(220, 218, 226);
+            height: 35%;
+            background-color: rgb(223, 221, 229);
+            justify-content: stretch;
 
             legend {
                 font-weight: bold;
@@ -76,12 +75,16 @@
                 span {
                     border-radius: 7%;
                     padding: 1%;
+                    background-color: $color-secondary;
+                }
+                span:hover{
+                    cursor: pointer;
                 }
             }
             &__selectCountry{
                 width: 80%;
                 height:20%;
-                margin-top: 0.5%;
+                margin-top: 1%;
                 .form__selectOrigin, .form__selectDestination{
                     width: 50%;
                 }
@@ -90,26 +93,85 @@
             }
             &__inputsDate{
                 width: 80%;
-                margin-top: 0.5%;
+                margin-top: 1%;
 
                 .form__inputSalida, .form__inputRegreso{
                     background-color: $color-secondary;
                 }
-                
             }
-
+            &__selectPassengers{
+                margin-top: 1%;
+            }
             &__button {
+                margin-top: 1%;
                 background-color: $color-primary;
-                @include button ($backgroundc: $color-primary, $colorletra: white, $pixel: 50%)
+                @include button ($backgroundc: $color-primary, $colorletra: white, $pixel: 80%)
             }
         }
 
     }
+    &__pay{
+        width: 66%;
+        gap: 5%;
+        h2{
+            @include h2Cards();
+        }
+        &__container{
+            display: flex;
+            justify-content: flex-start;
+            gap: 35%;
+            border-radius: 15px;
+            box-shadow: 0.5px 2px 5px 5px rgb(238, 233, 233);
+            padding: 1.5%;
+            align-items: center;
+            &__cards{
+                gap: 10%;
+                display:flex;
+                flex-direction: column;
+                justify-content:flex-start;
+                padding: 1%;
+                
+                img{
+                    width: 25%;
+                }
+                span {
+                    width: 110%;
+                    font-size: small;
+                    font-weight: lighter;
+                    padding-bottom: 0.4%;
+                }
+            }
+        }
+    }
 
     &__containerCards {
         display: flex;
-        width: 100%;
+        width: 66%;
         justify-content: space-around;
-        flex-wrap: wrap;
+        h2{
+            @include h2Cards();
+        }
+        .card{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 85%;
+            padding: 4% 2% 2% 2%;
+            img{
+                // width: 80%;
+                width:3em;
+            }
+            .cardTittle{
+                font-size: small;
+            }
+            .cardP{
+                font-size: small;
+                font-weight: lighter;
+                text-align: center;
+            }
+            
+        }
     }
+
 }

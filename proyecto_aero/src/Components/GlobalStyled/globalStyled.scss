@@ -8,7 +8,7 @@ $color-secondary:rgb(253, 252, 253);
     text-align: center;
     justify-content: center;
     padding: 4%;
-    border-radius: 10%;
+    border-radius: 20px;
     color:$colorletra;
     font-weight: bold;
     &:hover {
@@ -17,4 +17,13 @@ $color-secondary:rgb(253, 252, 253);
         cursor: pointer;
 
     }
+}
+@mixin h2Cards(){
+    font-weight: bolder;
+    font-size: x-large;
+    padding-bottom: 2%;
+}
+ 
+.active_button {
+    background: $color-primary;
 }
