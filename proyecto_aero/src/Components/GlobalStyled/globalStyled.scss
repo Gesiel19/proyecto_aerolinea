@@ -1,14 +1,14 @@
 $color-primary: rgb(161, 43, 136);
 $color-secondary:rgb(253, 252, 253);
-@mixin button($pixel: 124px, $backgroundc: $color_primary, $colorletra: $color) {
+@mixin button($pixel: 70%, $backgroundc: $color_primary, $colorletra: $color) {
     background: $backgroundc;
     box-shadow: 0 0 1px rgba(black, .25);
     border: 2px solid #7f7f7f;
     width: $pixel;
     text-align: center;
     justify-content: center;
-    padding: 2%;
-    border-radius: 22%;
+    padding: 4%;
+    border-radius: 20px;
     color:$colorletra;
     font-weight: bold;
     &:hover {
@@ -17,4 +17,13 @@ $color-secondary:rgb(253, 252, 253);
         cursor: pointer;
 
     }
+}
+@mixin h2Cards(){
+    font-weight: bolder;
+    font-size: x-large;
+    padding-bottom: 2%;
+}
+ 
+.active_button {
+    background: $color-primary;
 }
