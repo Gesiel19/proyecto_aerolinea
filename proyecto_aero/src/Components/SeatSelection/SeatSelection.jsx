@@ -11,10 +11,31 @@ const SeatSelection = () => {
   const [showSeats2, setShowSeats2] = useState([]);
   const [showSeats3, setShowSeats3] = useState([]);
   const [showSeats4, setShowSeats4] = useState([]);
+  const [color, setColor] = useState();
+  // estado del asiento 
   const get1 = async () => {
     const seatsGet = await getseats('showSeats');
     setShowSeats(seatsGet);
   }
+ showSeats.filter((item) => {
+    const aiuda = item.status
+    console.log(aiuda);
+    if (aiuda === "available") {
+      const handleClick = () => {
+        setColor("white");
+      }
+      
+    }
+  });
+  
+  const style = {
+    backgroundColor: color,
+
+  };
+  // puestosValidos();
+  // console.log(puestosValidos);
+
+
   const get2 = async () => {
     const seatsGet2 = await getseats2('showSeats2');
     setShowSeats2(seatsGet2);
@@ -39,31 +60,32 @@ const SeatSelection = () => {
 
 
 
-    const [color, setColor] = useState('rgb(192, 189, 189)');
-  
-    const handleClick = () => {
-      setColor(' rgb(161, 43, 136)');
-    }
-  
-    const handleMouseUp = () => {
-      setColor('red');
-    }
-  
-    const style = {
-      backgroundColor: color,
-    
-    };
-  
-    // return (
-    //   <button
-    //     style={style}
-    //     onClick={handleClick}
-    //     onMouseUp={handleMouseUp}
-    //   >
-    //     Hola mundo
-    //   </button>
-    // );
-  
+  // const [color, setColor] = useState('rgb(192, 189, 189)');
+
+  // const handleClick = () => {
+  //   setColor(' rgb(161, 43, 136)');
+  // }
+
+  // const handleMouseUp = () => {
+  //   setColor('red');
+  // }
+
+  // const style = {
+  //   backgroundColor: color,
+
+  // };
+
+  // return (
+  //   <button
+  //     style={style}
+  //     onClick={handleClick}
+  //     onMouseUp={handleMouseUp}
+  //   >
+  //     Hola mundo
+  //   </button>
+  // );
+
+
 
   return (
     <main >
@@ -81,54 +103,57 @@ const SeatSelection = () => {
       </div>
       <span className='text-center'>Salida rápida</span>
       <section className='seating1'>
-          <div className='seats'>
-            {
-              showSeats.map((seats, index) =>
-                <button key={seats.id}  style={style}
-                onClick={handleClick}
-                onMouseUp={handleMouseUp}></button>
-              )}
-          </div>
-          <article className='column-numeros'>
-            {
-              btn1.map((btn) =>
-                <button>{btn}</button>
-              )}
-          </article>
-          <div className='seats'>
-            {
-              showSeats3.map((seats3, index) =>
-                <button key={seats3.id}></button>
-              )}
-          </div>
+        <div className='seats'>
+          {
+            showSeats.map((seats, index) =>
+              <button key={seats.id} style={style}
+                // onClick={handleClick}
+                // onMouseUp={handleMouseUp}
+                >
+
+                </button>
+            )}
+        </div>
+        <article className='column-numeros'>
+          {
+            btn1.map((btn) =>
+              <button>{btn}</button>
+            )}
+        </article>
+        <div className='seats'>
+          {
+            showSeats3.map((seats3, index) =>
+              <button key={seats3.id}></button>
+            )}
+        </div>
       </section>
       <span className='text-center'>Estándar</span>
       <section className='seating1'>
-      <div className='seats'>
-            {
-              showSeats2.map((seats2, index) =>
-                <button key={seats2.id}></button>
-              )}
-          </div>
-          <article className='column-numeros'>
-            {
-              btn2.map((btn) =>
-                <button>{btn}</button>
-              )}
-          </article>
-          <div className='seats'>
-            {
-              showSeats4.map((seats4, index) =>
-                <button key={seats4.id}></button>
-              )}
-          </div>
+        <div className='seats'>
+          {
+            showSeats2.map((seats2, index) =>
+              <button key={seats2.id}></button>
+            )}
+        </div>
+        <article className='column-numeros'>
+          {
+            btn2.map((btn) =>
+              <button>{btn}</button>
+            )}
+        </article>
+        <div className='seats'>
+          {
+            showSeats4.map((seats4, index) =>
+              <button key={seats4.id}></button>
+            )}
+        </div>
       </section>
     </main>
   )
 
 
- 
-  
+
+
 }
 
 export default SeatSelection

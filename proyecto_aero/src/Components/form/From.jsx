@@ -144,7 +144,7 @@ const Form = ({ origen, destino, salida, pasajeros, handleVuelo }) => {
                     <span >Viaje redondo</span>
                 </Stack>
 
-                <Stack direction='row' spacing={4}>
+                <Stack direction='row' spacing={4} w="90%" className="form_selectCountry">
                     <select {...formik.getFieldProps('origen')}>
 
                         <option> Origen </option>

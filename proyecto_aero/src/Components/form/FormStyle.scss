@@ -18,9 +18,11 @@
         padding: 5% 3% 2% 10%;
         width: 70%;
         display: flex;
-        .planeImg{
+
+        .planeImg {
             border-radius: 20px;
         }
+
         .form {
             // transform: translateX(-750px);
             // transform: translateY(-60%);
@@ -57,8 +59,9 @@
                 border-radius: 10px;
                 padding: 0.5%;
                 width: 90%;
-                display:flex;
+                display: flex;
                 justify-content: space-around;
+
                 span {
                     border-radius: 7%;
                     padding: 1%;
@@ -76,10 +79,17 @@
                 // height: 20%;
                 margin-top: 1%;
 
+
                 .form__selectOrigin,
                 .form__selectDestination {
-                    width: 50%;
+                    width: 35%;
                     font-size: small;
+                    border-radius: 10px;
+                    padding: 1%;
+                }
+
+                .form__selectDestination {
+                    width: 65%;
                 }
             }
 
@@ -96,6 +106,17 @@
 
             &__selectPassengers {
                 margin-top: 1%;
+                width: 35%;
+                font-size: small;
+                border-radius: 10px;
+
+            }
+            &__discount{
+                margin-top: 1%;
+                width: 75%;
+                font-size: small;
+                border-radius: 10px;
+                border: 1px solid grey;
             }
 
             &__button {
@@ -103,6 +124,7 @@
                 background-color: $color-primary;
                 @include button ($backgroundc: $color-primary, $colorletra: white, $pixel: 80%)
             }
+
         }
 
     }

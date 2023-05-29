@@ -304,7 +304,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         </Stack>
                         <Stack direction='row' spacing={4} w="90%" className="form__selectCountry">
                             <select value={formik.values.origen} onChange={formik.handleChange} name="origen" className="form__selectOrigin">
-                                <option > Origen </option>
+                                <option  className="form__selectOrigin" > Origen </option>
                                 {infoCities.length &&
                                     infoCities.map((item) => (
                                         <option key={`origin${item.id}`} value={item.name}>
@@ -320,7 +320,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             {/* <FormControl w="25%"> */}
 
                             <select value={formik.values.destino} onChange={formik.handleChange} name="destino" className="form__selectDestination">
-                                <option> Selecciona un destino </option>
+                                <option  className=".form__selectDestination"> Selecciona un destino </option>
                                 {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
                                 {infoCities.length &&
                                     infoCities.map((item) => (
@@ -380,7 +380,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             {formik.touched.pasajeros && formik.errors.pasajeros && <div>{formik.errors.pasajeros}</div>}
                             {/* <FormErrorMessage>{formik.touched.pasajeros&& formik.errors.pasajeros&& <div>{formik.errors.pasajeros}</div>}</FormErrorMessage> */}
                             {/* </div>   */}
-                            <Input placeholder="Tienes un código de promoción" w="60%" />
+                            <Input placeholder="Tienes un código de promoción" w="60%" className="form__discount"/>
                         </Stack>
                         <Button className="form__button" type="submit" disabled={formik.isSubmitting} onClick={compararInformacion} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
                             <figure>
