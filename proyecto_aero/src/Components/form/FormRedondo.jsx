@@ -30,15 +30,12 @@ import {
     ModalCloseButton,
 } from '@chakra-ui/react'
 
-// import{
-//    PlaneIcon
-// } from '@chakra-ui/icons'
 
 import {
     TbPlaneTilt
 } from "react-icons/tb"
 
-// import { MdBuild, MdCall } from "react-icons/md"
+// Validación de los campos del form 
 
 const validationSchema = Yup.object().shape({
     origen: Yup.string()
@@ -50,27 +47,8 @@ const validationSchema = Yup.object().shape({
     pasajeros: Yup.number(),
 });
 
-
+// COMPONENTE FORM 
 const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
-    const navigate = useNavigate()
-    const [infoCities, handleCities] = useState([]);
-
-    const getCities = async () => {
-        const getInfoCities = await get('countriesInfo');
-        handleCities(getInfoCities);
-        console.log(getInfoCities);
-    }
-
-    useEffect(() => {
-        getCities();
-    }, [])
-
-    const navigateR = useNavigate();
-    const goTickets = () => {
-        navigateR("tickets")
-    }
-
-
     const initialValues = {
         origen: '',
         destino: '',
@@ -78,7 +56,23 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         regreso: '',
         pasajeros: 0,
     };
+    const navigate = useNavigate()
+    // Hook de estado para mostrar las ciudades 
+    const [infoCities, handleCities] = useState([]);
+    const getCities = async () => {
+        const getInfoCities = await get('countriesInfo');
+        handleCities(getInfoCities);
+        console.log(getInfoCities);
+    }
+    useEffect(() => {
+        getCities();
+    }, [])
 
+    // Hook de navegación para direccionar a los detalles del vuelo 
+    const navigateR = useNavigate();
+    const goTickets = () => {
+        navigateR("tickets")
+    }
 
     const formik = useFormik({
         initialValues,
@@ -86,7 +80,6 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         onSubmit: (values) => {
 
             var inputReturn = document.getElementById("inputR");
-
             // Verifica si el elemento está deshabilitado
             if (inputReturn.disabled) {
                 values.regreso = '';
@@ -105,19 +98,19 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
         },
         enableReinitialize: true
     })
-
+    // Hook de estado para el vuelo sencillo y redondo 
     const [tipoDeVuelo, setTipoDeVuelo] = useState(false);
+    const [bgColor, setBgColor] = useState('white');
 
     const selectVueloSencillo = () => {
+        const newColor = "rgb(161, 43, 136)";
+        setBgColor(newColor);
         setTipoDeVuelo(true)
     }
     const selectVueloRedondo = () => {
         setTipoDeVuelo(false)
     }
-
-
-
-
+    // Función que compara la información del formulario con la de la data
     async function compararInformacion() {
         try {
             const response = await axios.get('http://localhost:3000/flightInformation');
@@ -126,44 +119,60 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
             const storedFormValues = JSON.parse(sessionStorage.getItem('infoVuelos'));
             console.log(storedFormValues);
+            if (
+                storedFormValues.origen !== "" &&
+                storedFormValues.destino !== "" &&
+                storedFormValues.salida !== "" 
 
-            if (storedFormValues) {
-                const resultado = data.filter(item => {
-                    return (
-                        item.Origin_country === storedFormValues.origen &&
-                        item.Destination_country === storedFormValues.destino &&
-                        item.Departure_date === storedFormValues.salida &&
-                        item.Arrival_date === storedFormValues.regreso
-                    );
-                });
-               
-                if (resultado) {
-                    console.log(resultado);
-                    console.log('La información coincide');
-                    Swal.fire(
-                        'excelente',
-                        'Vuelo encontrado!',
-                        'success'
-                    )
-                    sessionStorage.setItem('idVuelo', JSON.stringify(resultado));
-                    navigate('/tickets')
+            ) {
+                if (storedFormValues) {
+                    const resultado = data.filter(item => {
+                        return (
+                            item.Origin_country === storedFormValues.origen &&
+                            item.Destination_country === storedFormValues.destino &&
+                            item.Departure_date === storedFormValues.salida &&
+                            item.Arrival_date === storedFormValues.regreso
+                        );
+                    });
 
-                } else {
-                    console.log('La información no coincide');
-                    sessionStorage.clear()
-                    Swal.fire(
-                        'upps',
-                        'No se encontraron vuelos!',
-                        'error'
-                    )
+                    if (resultado.length) {
+                        console.log(resultado);
+                        console.log('La información coincide');
+                        Swal.fire(
+                            'excelente',
+                            'Vuelo encontrado!',
+                            'success'
+                        )
+                        sessionStorage.setItem('idVuelo', JSON.stringify(resultado));
+                        navigate('/tickets')
+
+                    } else {
+                        console.log('La información no coincide');
+                        sessionStorage.clear()
+                        Swal.fire(
+                            'upps',
+                            'No se encontraron vuelos!',
+                            'error'
+                        )
+                        // form.reset();
+                    }
                 }
+
+            } else {
+                Swal.fire(
+                    'upps',
+                    'llene todos los datos porfavor',
+                    'error'
+                )
+                console.log("llene los datos porfavor");
             }
+
         } catch (error) {
             console.error('Error al cargar el archivo JSON:', error);
+
         }
     }
-
-    compararInformacion();
+    // compararInformacion();
 
 
 
@@ -207,26 +216,14 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
 
 
-    // const handleSubmit = async () => {
+    // const handleSubmit = () => {
     //     // e.preventDefault();
     //     console.log(initialValues);
-    //     if (
-    //         initialValues.origen !== "" &&
-    //         initialValues.destino !== "" &&
-    //         initialValues.salidaDate !== "" &&
-    //         initialValues.regresoDate !== ""
-
-    //     ) {
+    //     {
     //         console.log("se puede continuar");
-    //         await filterFligth(initialValues)
-    //     } else {
-    //         console.log("llene los datos porfavor");
     //     }
     // };
     // handleSubmit();
-
-
-
     return (<div className="container">
         <figure>
             <img src={planeImage} alt="plane" />
@@ -241,8 +238,8 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                 <FormLabel>Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
                 <Stack direction='row' spacing={4}>
 
-                    <span onClick={selectVueloSencillo} >Viaje sencillo </span>
-                    <span onClick={selectVueloRedondo}>Viaje redondo</span>
+                    <span onClick={selectVueloSencillo} style={{ backgroundColor: bgColor }}>Viaje sencillo </span>
+                    <span onClick={selectVueloRedondo} >Viaje redondo</span>
                 </Stack>
 
                 <Stack direction='row' spacing={4}>
