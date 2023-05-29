@@ -1,141 +1,143 @@
 
-import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Modal from 'react-modal';
-import { get} from "../../Services/GetFlights"
-import { useFormik } from 'formik';
-import "./Modal.scss"
-import planeImage from "../../assest/bg-plane.jpeg"
+// import React, { useState, useEffect } from 'react';
+// import { Formik, Form, Field, ErrorMessage } from 'formik';
+// import Modal from 'react-modal';
+// import { get} from "../../Services/GetFlights"
+// import { useFormik } from 'formik';
+// import "./Modal.scss"
+// import planeImage from "../../assest/bg-plane.jpeg"
 
 
 
-import {
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    Input,
-    Flex,
-    Button,
-    Stack,
-    useDisclosure
+// import {
+//     FormControl,
+//     FormLabel,
+//     FormErrorMessage,
+//     Input,
+//     Flex,
+//     Button,
+//     Stack,
+//     useDisclosure
 
-} from '@chakra-ui/react'
+// } from '@chakra-ui/react'
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
-const FormSencillo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
+// const FormSencillo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
 
-    const [infoCities, handleCities] = useState([]);
+//     const [infoCities, handleCities] = useState([]);
 
-    const getCities = async() => {
-        const getInfoCities = await get('countriesInfo');
-        handleCities(getInfoCities);
-        console.log(getInfoCities);
-    }    
+//     const getCities = async() => {
+//         const getInfoCities = await get('countriesInfo');
+//         handleCities(getInfoCities);
+//         console.log(getInfoCities);
+//     }    
 
-    useEffect(() => {        
-        getCities();
-    }, [])
-}
+//     useEffect(() => {        
+//         getCities();
+//     }, [])
+// }
 
 
-const ModalForm = ({ isOpen, onClose, handleVuelo }) => {
-  const initialValues = {
-    origen: '',
-        destino: '',
-        salida: '',
-        regreso: '',
-        pasajeros: 0,
-  };
+// const ModalForm = ({ isOpen, onClose, handleVuelo }) => {
+//   const initialValues = {
+//     origen: '',
+//         destino: '',
+//         salida: '',
+//         regreso: '',
+//         pasajeros: 0,
+//   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-      onClose();
-    }, 400);
-  };
+//   const handleSubmit = (values, { setSubmitting }) => {
+//     setTimeout(() => {
+//       alert(JSON.stringify(values, null, 2));
+//       setSubmitting(false);
+//       onClose();
+//     }, 400);
+//   };
 
-  const formik = useFormik({
-    initialValues,
-    // validationSchema,
-    onSubmit: (values) => {            
-        values.regreso = '';
-        // console.log("values", values);
-        handleSubmit(values);
-    },
-    enableReinitialize: true
-})
+//   const formik = useFormik({
+//     initialValues,
+//     // validationSchema,
+//     onSubmit: (values) => {            
+//         values.regreso = '';
+//         // console.log("values", values);
+//         handleSubmit(values);
+//     },
+//     enableReinitialize: true
+// })
 
-const [tipoDeVuelo, setTipoDeVuelo] = useState(false);
+// const [tipoDeVuelo, setTipoDeVuelo] = useState(false);
 
-const selectVueloSencillo = () => {
-    setTipoDeVuelo(true)
-}
-const selectVueloRedondo = () => {
-    setTipoDeVuelo(false)
-}
+// const selectVueloSencillo = () => {
+//     setTipoDeVuelo(true)
+// }
+// const selectVueloRedondo = () => {
+//     setTipoDeVuelo(false)
+// }
 
-  return (
-    <Modal isOpen={isOpen} onRequestClose={onClose}>
+//   return (
+//     <Modal isOpen={isOpen} onRequestClose={onClose}>
         
-      <h2>¿A dónde viajas?</h2>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form className='form'>
-          <div>
-          <Field type="email" id="email" name="email"  />
+//       <h2>¿A dónde viajas?</h2>
+//       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+//         <Form className='form'>
+//           <div>
+//           <Field type="email" id="email" name="email"  />
             
         
-          </div>
-          <div>
-            <label htmlFor="email">Email</label>
-            <Field type="email" id="email" name="email" />
-            <ErrorMessage name="email" component="div" />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <Field type="password" id="password" name="password" />
-            <ErrorMessage name="password" component="div" />
-          </div>
-          <button type="submit">Submit</button>
-        </Form>
+//           </div>
+//           <div>
+//             <label htmlFor="email">Email</label>
+//             <Field type="email" id="email" name="email" />
+//             <ErrorMessage name="email" component="div" />
+//           </div>
+//           <div>
+//             <label htmlFor="password">Password</label>
+//             <Field type="password" id="password" name="password" />
+//             <ErrorMessage name="password" component="div" />
+//           </div>
+//           {/* <button type="submit" onClick={closeModal}>Submit</button> */}
+//           <button type="submit" > cerrar </button>
+//         </Form>
         
-      </Formik>
-    </Modal>
-  );
-}
+//       </Formik>
+//     </Modal>
+//   );
+// }
 
-function Modals() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+// function Modals() {
+//   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+//   const openModal = () => {
+//     setIsModalOpen(true);
+//   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+//   const closeModal = () => {
+//     setIsModalOpen(false);
+//   };
 
-  return (
-    <div className='container'>
-          <figure>
-            <img src={planeImage} alt="plane" />
+//   return (
+//     <div className='container'>
+//           <figure>
+//             <img src={planeImage} alt="plane" />
 
-        </figure>
-        <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={4}>
-       <FormControl className="first__text">
-                    <legend> Busca un nuevo destino y comienza la aventura</legend>
-                </FormControl>
-      <FormLabel>Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
-      </Flex>
-      <button onClick={openModal}>Vuelo Sencillo</button>
-      <button onClick={openModal}>Fecha de viaje</button>
-      <ModalForm isOpen={isModalOpen} onClose={closeModal} />
-    </div>
-  );
-}
+//         </figure>
+//         <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={4}>
+//        <FormControl className="first__text">
+//                     <legend> Busca un nuevo destino y comienza la aventura</legend>
+//                 </FormControl>
+//       <FormLabel>Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
+//       </Flex>
+//       <button onClick={openModal}>Vuelo Sencillo</button>
+//       <button onClick={openModal}>Fecha de viaje</button>
+//       <button onClick={closeModal}>cerrar </button>
+//       <ModalForm isOpen={isModalOpen} onClose={closeModal} />
+//     </div>
+//   );
+// }
 
-export default Modals
+// export default Modals
 
 
 
