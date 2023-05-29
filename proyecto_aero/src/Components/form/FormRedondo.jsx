@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import "./FormStyle.scss";
 import { get } from "../../Services/GetFlights";
+// import Back  from "../Common/back/Back";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { SimpleGrid, Heading, Text, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
@@ -272,13 +273,23 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
     //     {
     //         console.log("se puede continuar");
     //     }
-    // };
-    // handleSubmit();
+    // // };
+    // // handleSubmit();
+    //     const [isModalOpen, setIsModalOpen] = useState(false);
+      
+    //     const openModal = () => {
+    //         setIsModalOpen(true);
+
+    //     };
+      
+    //     // const closeModal = () => {
+    //     //   setIsModalOpen(false);
+    //     // };
     return (
     <div className="mainHome">
     <section className="mainHome__containerForm">
         <figure>
-            <img src={planeImage} alt="plane" />
+            <img  className="planeImg" src={planeImage} alt="plane" />
             </figure>
                 <form onSubmit={formik.handleSubmit} className="form">
                     <Flex overflow="wrap" flexWrap="wrap" alignContent="center" flexDirection="column" spacing={10}>
@@ -334,8 +345,10 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         </Stack>
                         {/* {formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>} */}
                         <Stack direction='row' spacing={4} w="90%" className="form__selectPassengers">
+                            {/* <span onClick={openModal}> hola </span>
+                            {isModalOpen && <Back />} */}
                             <select value={formik.values.pasajeros} onChange={formik.handleChange} w="40%" name="pasajeros">
-                                <option value="."> Pasajeros </option>
+                                <option value="." > Pasajeros </option>
                                 <option value="1"> 1 </option>
                                 <option value="2"> 2 </option>
                                 <option value="3"> 3 </option>
@@ -369,7 +382,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             {/* </div>   */}
                             <Input placeholder="Tienes un código de promoción" w="60%" />
                         </Stack>
-                        <Button className="form__button" type="submit" disabled={formik.isSubmitting} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
+                        <Button className="form__button" type="submit" disabled={formik.isSubmitting} onClick={compararInformacion} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
                             <figure>
                                 <img>
                                 </img>
