@@ -1,8 +1,8 @@
 import React from 'react'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./ticketsP.scss"
 import { useNavigate } from 'react-router-dom'
-import { get } from "../../Services/GetFlights"
+// import { get } from "../../Services/GetFlights"
 import maleta from "../../assest/maleta.png"
 
 const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
@@ -24,10 +24,12 @@ const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVue
     const returnHome = () => {
         sessionStorage.clear()
         navigate("/")
+      
+    }
 
-        const goSeatSelect = () => {
-            navigate ("seats")
-        }
+
+    const goSeatSelect = () => {
+        navigate ("/seats")
     }
 
 
@@ -123,7 +125,7 @@ const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVue
                                     <span>IVA{item.iva} </span> <br/>
                                     <span className='totalTickets'>Total {item.Price} </span> 
                                 </div>
-                                <button onClick={returnHome}>Cambiar Vuelo</button>
+                                <button className='buttonSeat' onClick={goSeatSelect}>Seleccionar Asientos</button>
                             </aside>
 
 

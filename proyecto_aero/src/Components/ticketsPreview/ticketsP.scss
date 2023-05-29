@@ -211,3 +211,22 @@
 
     
 }
+
+.buttonSeat{
+    width: 150px;
+    height: 40px;
+    border-radius: 17px;
+    border: 2px solid rgb(199, 77, 144);
+    color: rgb(199, 77, 144);
+    background-color: transparent;
+    cursor: pointer;
+    margin-right: -5px;
+    margin-top: 20px;
+    
+
+}
+button:hover {
+    background-color: rgb(199, 77, 144);
+    border: none;
+    color: #fff;
+}
