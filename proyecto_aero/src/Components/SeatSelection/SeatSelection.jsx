@@ -85,7 +85,21 @@ const SeatSelection = () => {
   //   </button>
   // );
 
+  const [seatse, setSeatse] = useState(get1);
 
+  const handleSeatClick = (seatId) => {
+    setSeatse((prevSeats) => {
+      return prevSeats.map((seat) => {
+        if (seat.id === seatId) {
+          return {
+            ...seat,
+            occupied: !seat.occupied,
+          };
+        }
+        return seat;
+      });
+    });
+  };
 
   return (
     <main >
@@ -106,9 +120,13 @@ const SeatSelection = () => {
         <div className='seats'>
           {
             showSeats.map((seats, index) =>
-              <button key={seats.id} style={style}
+              <button key={seats.id} 
+              onClick={() => handleSeatClick(seats.id)}
                 // onClick={handleClick}
                 // onMouseUp={handleMouseUp}
+                style={{
+                  backgroundColor: seats.status === "available" ? 'white' :'rgb(192, 189, 189)',
+                }}
                 >
 
                 </button>
@@ -123,7 +141,9 @@ const SeatSelection = () => {
         <div className='seats'>
           {
             showSeats3.map((seats3, index) =>
-              <button key={seats3.id}></button>
+              <button key={seats3.id} style={{
+                backgroundColor: seats3.status === "available" ? 'white' :'rgb(192, 189, 189)',
+              }}></button>
             )}
         </div>
       </section>
@@ -132,7 +152,9 @@ const SeatSelection = () => {
         <div className='seats'>
           {
             showSeats2.map((seats2, index) =>
-              <button key={seats2.id}></button>
+              <button key={seats2.id} style={{
+                backgroundColor: seats2.status === "available" ? 'white' :'rgb(192, 189, 189)',
+              }}></button>
             )}
         </div>
         <article className='column-numeros'>
@@ -144,7 +166,9 @@ const SeatSelection = () => {
         <div className='seats'>
           {
             showSeats4.map((seats4, index) =>
-              <button key={seats4.id}></button>
+              <button key={seats4.id} style={{
+                backgroundColor: seats4.status === "available" ? 'white' :'rgb(192, 189, 189)',
+              }}></button>
             )}
         </div>
       </section>

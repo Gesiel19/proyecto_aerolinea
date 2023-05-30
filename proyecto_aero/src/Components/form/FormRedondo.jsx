@@ -182,7 +182,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         return (
                             item.Origin_country === storedFormValues.origen &&
                             item.Destination_country === storedFormValues.destino &&
-                            item.Departure_date === storedFormValues.salida &&
+                            item.Departure_date === storedFormValues.salida ||
                             item.Arrival_date === storedFormValues.regreso
                         );
                     });
