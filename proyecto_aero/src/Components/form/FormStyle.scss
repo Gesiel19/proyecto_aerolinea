@@ -21,21 +21,26 @@
 
         .planeImg {
             border-radius: 20px;
+             width: 70%;
         }
 
         .form {
-            // transform: translateX(-750px);
-            // transform: translateY(-60%);
-            // position: absolute;
+            // transform: translateX(-50%);
+            // transform: translateY(30%);
+            position: absolute;
             // top: 520px;
             // left: 330px;
+            top: 15%;
+            left: 10%;
             display: flex;
             gap: 3%;
             z-index: 4;
-            padding: 0.5% 2%;
+            padding: 1% 2%;
             border-radius: 5%;
-            width: 60%;
-            height: 70%;
+            // width: 60%;
+            // height: 70%;
+            width: 25%;
+            height: 30%;
             background-color: rgb(223, 221, 229);
             justify-content: stretch;
 
@@ -47,7 +52,7 @@
 
             &__label {
                 font-weight: lighter;
-                font-size: small;
+                font-size: x-small;
             }
 
             span {
@@ -58,7 +63,7 @@
                 background-color: $color-secondary;
                 border-radius: 10px;
                 padding: 0.5%;
-                width: 90%;
+                width: 80%;
                 display: flex;
                 justify-content: space-around;
 
@@ -89,7 +94,7 @@
                 }
 
                 .form__selectDestination {
-                    width: 65%;
+                    width: 60%;
                 }
             }
 
@@ -103,20 +108,23 @@
                     font-size: small;
                 }
             }
-
-            &__selectPassengers {
+            &__lastRow{
+                width: 90%;
                 margin-top: 1%;
-                width: 35%;
+            }
+            &__selectPassengers {
+                width: 40%;
                 font-size: small;
                 border-radius: 10px;
+                padding: 1%;
 
             }
             &__discount{
-                margin-top: 1%;
-                width: 75%;
-                font-size: small;
+                width: 50%;
+                height: 2%;
+                font-size: xx-small;
                 border-radius: 10px;
-                border: 1px solid grey;
+                border: 5px solid grey;
             }
 
             &__button {

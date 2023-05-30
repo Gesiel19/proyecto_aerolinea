@@ -164,6 +164,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
     // Función que compara la información del formulario con la de la data
     async function compararInformacion() {
         try {
+            //capturar información de ciudades
             const response = await axios.get('http://localhost:3000/flightInformation');
             const data = response.data;
             console.log(data);
@@ -220,71 +221,14 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
         } catch (error) {
             console.error('Error al cargar el archivo JSON:', error);
+            Swal.fire(
+                'upps',
+                'llene todos los datos por favor',
+                'error'
+            )
 
         }
     }
-    // compararInformacion();
-
-
-
-
-    // const filterFligth = async (values) => {
-
-    //     const vuelosFiltrados = await get("flightInformation")
-
-    //     const getSession = JSON.parse(sessionStorage.getItem('infoVuelos'));
-    //     console.log(getSession);
-
-
-    //     if (getSession.length) {
-
-    //             const resultado = vuelosFiltrados.some(item => {
-
-    //                 return item.Origin_country === getSession.origen;
-    //             });
-
-
-    //         console.log(resultado);
-
-    // if (resultado === ) {
-
-    // }
-
-
-
-    // navigate('/vuelos')
-    //     } else {
-    //         Swal.fire(
-    //             'upps',
-    //             'No se encontraron vuelos!',
-    //             'error'
-    //           )
-
-    //     }
-    // }
-
-    // filterFligth();
-
-
-
-    // const handleSubmit = () => {
-    //     // e.preventDefault();
-    //     console.log(initialValues);
-    //     {
-    //         console.log("se puede continuar");
-    //     }
-    // // };
-    // // handleSubmit();
-    //     const [isModalOpen, setIsModalOpen] = useState(false);
-      
-    //     const openModal = () => {
-    //         setIsModalOpen(true);
-
-    //     };
-      
-    //     // const closeModal = () => {
-    //     //   setIsModalOpen(false);
-    //     // };
     return (
     <div className="mainHome">
     <section className="mainHome__containerForm">
@@ -298,7 +242,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         </FormControl>
                         {/* <FormControl w="25%" > */}
                         <FormLabel className="form__label" >Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
-                        <Stack className="form__selectVuelo" direction='row' spacing={7} w="50%" >
+                        <Stack className="form__selectVuelo" direction='row' spacing={4} w="50%" >
                             <span onClick={selectVueloSencillo}>Viaje sencillo </span>
                             <span onClick={selectVueloRedondo}>Viaje redondo</span>
                         </Stack>
@@ -320,7 +264,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             {/* <FormControl w="25%"> */}
 
                             <select value={formik.values.destino} onChange={formik.handleChange} name="destino" className="form__selectDestination">
-                                <option  className=".form__selectDestination"> Selecciona un destino </option>
+                                <option  className="form__selectDestination"> Selecciona un destino </option>
                                 {/* <FormErrorMessage>{formik.touched.destino && formik.errors.destino && <div>{formik.errors.destino}</div>}</FormErrorMessage> */}
                                 {infoCities.length &&
                                     infoCities.map((item) => (
@@ -344,10 +288,10 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             {/* </FormControl> */}
                         </Stack>
                         {/* {formik.touched.regreso && formik.errors.regreso && <div>{formik.errors.regreso}</div>} */}
-                        <Stack direction='row' spacing={4} w="90%" className="form__selectPassengers">
+                        <Stack direction='row' spacing={4} w="90%" className="form__lastRow">
                             {/* <span onClick={openModal}> hola </span>
                             {isModalOpen && <Back />} */}
-                            <select value={formik.values.pasajeros} onChange={formik.handleChange} w="40%" name="pasajeros">
+                            <select value={formik.values.pasajeros} onChange={formik.handleChange}  name="pasajeros"className="form__selectPassengers" >
                                 <option value="." > Pasajeros </option>
                                 <option value="1"> 1 </option>
                                 <option value="2"> 2 </option>
@@ -380,7 +324,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                             {formik.touched.pasajeros && formik.errors.pasajeros && <div>{formik.errors.pasajeros}</div>}
                             {/* <FormErrorMessage>{formik.touched.pasajeros&& formik.errors.pasajeros&& <div>{formik.errors.pasajeros}</div>}</FormErrorMessage> */}
                             {/* </div>   */}
-                            <Input placeholder="Tienes un código de promoción" w="60%" className="form__discount"/>
+                            <Input placeholder="Tienes un código de promoción" className="form____discount"/>
                         </Stack>
                         <Button className="form__button" type="submit" disabled={formik.isSubmitting} onClick={compararInformacion} leftIcon={<TbPlaneTilt />} colorScheme='teal' variant='outline' >
                             <figure>
