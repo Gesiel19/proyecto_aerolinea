@@ -16,7 +16,7 @@ const DatosVuelo = () => {
         navigate("/")
       
     }
-
+    const getPrecioTotalVuelo = JSON.parse(sessionStorage.getItem('precioTotalVuelo'))
     return (
         <div className='nolose'>
 
@@ -55,7 +55,7 @@ const DatosVuelo = () => {
                             </div>
                             <h4>Costo de vuelo</h4><br />
                             <div className="costo__vuelos">
-                                <span>Tarifa Base {item.price} </span> <br />
+                                <span>Tarifa Base {getPrecioTotalVuelo} </span> <br />
                                 <span>Descuento Promocional {item.Descuento_Pormocional} </span> <br />
                                 <span>Tarifa Base con Descueento {item.Tarifa_Base_con_Dscto} </span> <br />
                                 <span>IVA{item.iva} </span> <br />

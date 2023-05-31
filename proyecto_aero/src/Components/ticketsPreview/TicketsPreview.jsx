@@ -1,13 +1,14 @@
-import React from 'react'
-import { useState } from "react";
-import "./ticketsP.scss"
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import "./ticketsP.scss"
 // import { get } from "../../Services/GetFlights"
 import maleta from "../../assest/maleta.png"
 import iconLine from "../../assest/icon-line2.jpeg"
 
 const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
-    const getInfoVuelo = JSON.parse(sessionStorage.getItem('idVuelo'));
+    const getInfoVuelo = JSON.parse(sessionStorage.getItem('idVuelo')) || {};
+    const valorVuelo = getInfoVuelo[0].price;
+    console.log(valorVuelo);
     const [infoFlight, handleFlight] = useState([]);
 
     // const getFlight = async (id) => {
@@ -136,9 +137,64 @@ const selectBaggageDe252=() =>{
   }
 }
 
+    // const [num1, setNum1] = useState(0);
+    // const [num2, setNum2] = useState(0);
+    // const [suma, setSuma] = useState(0);
+  
+    // useEffect(() => {
+    //   const resultado = num1 + num2;
+    //   setSuma(resultado);
+    // }, [num1, num2]);
+  
+    // let sumaTotal = 0
 
+    // getInfoVuelo.map((item, index) => {
+    //     const valorEquipaje = // Cálculo del valor del equipaje
+    //     const tarifaBase = item.price;
+      
+    //     const suma = valorEquipaje + tarifaBase;
+    //     sumaTotal += suma; // Actualizar la suma total
+   // valor equipaje de ida 
+    const changeValor1 = (item) => {
+        if (item === 'a'&& equipajeSencillo === initialColor ) {
+            console.log(500)
+            setValorEquipajeS(17000);
+            setEquipajeSencillo("rgb(161, 43, 136)");
+        }
+        if (item === 'b'&& equipajeDeMano === initialColor ) {
+            console.log(1000)
+            setValorEquipajeS(20000);
+            setEquipajeDeMano("rgb(161, 43, 136)")
+        }
+        if (item === 'c' && equipajeDe25=== initialColor ) {
+            console.log(1900)
+            setValorEquipajeS(25000);
+            setEquipajeDe25("rgb(161, 43, 136)")
+        }
+    }
 
+ // valor equipaje de regreso 
+     const changeValor2 = (item) => {
+        if (item === 'a'&& equipajeSencillo2 === initialColor ) {
+            console.log(500)
+            setValorEquipajeS2(17000);
+            setEquipajeSencillo2("rgb(161, 43, 136)");
+        }
+        if (item === 'b'&& equipajeDeMano2 === initialColor ) {
+            console.log(1000)
+            setValorEquipajeS2(20000);
+            setEquipajeDeMano2("rgb(161, 43, 136)")
+        }
+        if (item === 'c' && equipajeDe252 === initialColor ) {
+            console.log(1900)
+            setValorEquipajeS2(25000);
+            setEquipajeDe252("rgb(161, 43, 136)")
+        }
+    }
 
+    const  totalEquipaje = valorEquipajeS + valorEquipajeS2;
+    const totalPrecioVuelo = totalEquipaje + valorVuelo;
+ sessionStorage.setItem('precioTotalVuelo', JSON.stringify(totalPrecioVuelo));
     return (
         <>
 
@@ -169,9 +225,9 @@ const selectBaggageDe252=() =>{
 
                                         {/* {  baggage.map((item) => <button key={item.id} className='buttonBaggage' style={{ backgroundColor: equipajeSencillo}} onClick={selectBaggageSencillo} > <img src={item.image} alt='icon' className='icon' /> {item.name} <br /><span>{item.pricetoShow}</span>
                                         </button>)} */}
-                                        <button className='buttonBaggage' style={{ backgroundColor: equipajeSencillo}} onClick={selectBaggageSencillo}><img src={maleta} alt='icon' className='icon' /> 1 objeto personal <br /><span>$17.000 COP</span></button>
-                                        <button className='buttonBaggage' style={{ backgroundColor: equipajeDeMano }} onClick={ selectBaggageDeMano}> <img src={maleta} alt='icon' className='icon' />  Equipaje de mano <br /><span>$20.000 COP</span></button>
-                                        <button className='buttonBaggage' style={{ backgroundColor: equipajeDe25 }} onClick={ selectBaggageDe25}> <img src={maleta} alt='icon' className='icon' />  Equipaje 25kg <br /><span>$25.000 COP</span></button>
+                                        <button className='buttonBaggage' style={{ backgroundColor: equipajeSencillo}} onClick={() => { changeValor1('a') }}><img src={maleta} alt='icon' className='icon' /> 1 objeto personal <br /><span>$17.000 COP</span></button>
+                                        <button className='buttonBaggage' style={{ backgroundColor: equipajeDeMano }} onClick={() => { changeValor1('b') }}> <img src={maleta} alt='icon' className='icon' />  Equipaje de mano <br /><span>$20.000 COP</span></button>
+                                        <button className='buttonBaggage' style={{ backgroundColor: equipajeDe25 }} onClick={() => { changeValor1('c') }}> <img src={maleta} alt='icon' className='icon' />  Equipaje 25kg <br /><span>$25.000 COP</span></button>
 
                                     </div>
 
@@ -193,9 +249,9 @@ const selectBaggageDe252=() =>{
                                             <article>
                                                 <span className="hora">{item.Departure_time} PM •-• {item.Arrival_time} PM</span>
                                             </article>
-                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeSencillo2}} onClick={selectBaggageSencillo2}><img src={maleta} alt='icon' className='icon' /> 1 objeto personal <br /><span>$17.000 COP</span></button>
-                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeDeMano2 }} onClick={ selectBaggageDeMano2}> <img src={maleta} alt='icon' className='icon' />  Equipaje de mano <br /><span>$20.000 COP</span></button>
-                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeDe252 }} onClick={ selectBaggageDe252}> <img src={maleta} alt='icon' className='icon' />  Equipaje 25kg <br /><span>$25.000 COP</span></button>
+                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeSencillo2}} onClick={() => { changeValor2('a') }}><img src={maleta} alt='icon' className='icon' /> 1 objeto personal <br /><span>$17.000 COP</span></button>
+                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeDeMano2 }} onClick={() => { changeValor2('b') }}> <img src={maleta} alt='icon' className='icon' />  Equipaje de mano <br /><span>$20.000 COP</span></button>
+                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeDe252 }} onClick={() => { changeValor2('c') }}> <img src={maleta} alt='icon' className='icon' />  Equipaje 25kg <br /><span>$25.000 COP</span></button>
                                         {/* {  baggage.map((item) => <button key={item.id} className='buttonBaggage' style={{ backgroundColor: equipajeDeMano }} onClick={ selectBaggageDeMano} > <img src={item.image} alt='icon' className='icon' /> {item.name} <br /><span>{item.pricetoShow}</span>
                                         </button>)} */}
                                         </div>
@@ -229,12 +285,14 @@ const selectBaggageDe252=() =>{
                                 </div>
                                 <h4>Costo de vuelo</h4><br />
                                 <div className="costo__vuelos">
-                                    <span>Tarifa Base {item.price} </span> <br/>
-                                    <span>Valor equipaje {valorEquipajeS}  {valorEquipajeM}  {valorEquipaje25}</span> <br/>
+                                    <span>Tarifa Base {item.price}  </span> <br/>
+                                    <span>Valor equipaje ida {valorEquipajeS}</span> <br/>
+                                    <span>Valor equipaje regreso {valorEquipajeS2}</span> <br/>
+                                    <span>Valor Total equipaje  {totalEquipaje} </span> <br/>
                                     <span>Dscto Promocional {item.Descuento_Pormocional} </span> <br/>
                                     <span>Tarifa Base con Dscto {item.Tarifa_Base_con_Dscto} </span> <br/>
                                     <span>IVA{item.iva} </span> <br/>
-                                    <span className='totalTickets'>Total {item.Price} </span> 
+                                    <span className='totalTickets'>Total {totalPrecioVuelo}  </span> 
                                 </div>
                                 <h4>Servicios Adicionales</h4><br />
                                 <div className="costo__vuelos">
