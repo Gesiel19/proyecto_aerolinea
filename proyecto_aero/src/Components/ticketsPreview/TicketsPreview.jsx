@@ -71,28 +71,29 @@ const selectBaggageSencillo=() =>{
     }
 }
 
-
-
-
 //hock de estado para asignar el valor del equipaje sencillo 
-// const [valorEquipajeS, setValorEquipajeS] = useState();
-// // Hook de estado para el clic en el equipaje sencillo 2
-// const [equipajeSencillo2, setEquipajeSencillo2] = useState('white');
-// const initialColorS2 = 'white';
-// const selectBaggageSencillo2=() =>{
-//   if (equipajeSencillo === initialColorS2) {
-//     setEquipajeSencillo2("rgb(161, 43, 136)");
-//   } else {
-//     setEquipajeSencillo2(initialColorS2);
-//   }
-// }
+const [valorEquipajeS2, setValorEquipajeS2] = useState();
+// Hook de estado para el clic en el equipaje sencillo 1
+const [equipajeSencillo2, setEquipajeSencillo2] = useState('white');
+const initialColorS2 = 'white';
 
+const selectBaggageSencillo2=() =>{
+  if (equipajeSencillo === initialColorS2) {
+      setEquipajeSencillo2("rgb(161, 43, 136)");
+      setValorEquipajeS2('17000')
+  } else {
+      setEquipajeSencillo(initialColorS2);
+  }
+}
+//hock de estado para asignar el valor del equipaje de mano 
+const [valorEquipajeM, setValorEquipajeM] = useState();
 // Hook de estado para el clic en el equipaje de mano 1
 const [equipajeDeMano, setEquipajeDeMano] = useState('white');
 const initialColorM = 'white';
 const selectBaggageDeMano=() =>{
   if (equipajeDeMano === initialColorM) {
     setEquipajeDeMano("rgb(161, 43, 136)");
+    setValorEquipajeM('20000')
     // setSpanContent('Nuevo contenido para el span')
   } else {
       setEquipajeDeMano(initialColorM);
@@ -108,22 +109,28 @@ const selectBaggageDeMano2=() =>{
       setEquipajeDeMano2(initialColorM);
   }
 }
+//hock de estado para asignar el valor del equipaje de 25 kg 
+const [valorEquipaje25, setValorEquipaje25] = useState();
 // Hook de estado para el clic en el equipaje de 25Kg 1
 const [equipajeDe25, setEquipajeDe25] = useState('white');
 const initialColor2 = 'white';
 const selectBaggageDe25=() =>{
   if (equipajeDe25 === initialColor2) {
     setEquipajeDe25("rgb(161, 43, 136)");
+    setValorEquipaje25('25000')
   } else {
     setEquipajeDe25(initialColor2);
   }
 }
+//hock de estado para asignar el valor del equipaje de 25 kg 
+const [valorEquipaje252, setValorEquipaje252] = useState();
 // Hook de estado para el clic en el equipaje de 25Kg 2
 const [equipajeDe252, setEquipajeDe252] = useState('white');
 const initialColor22 = 'white';
 const selectBaggageDe252=() =>{
   if (equipajeDe252 === initialColor22) {
     setEquipajeDe252("rgb(161, 43, 136)");
+    setEquipajeDe252("25000")
   } else {
     setEquipajeDe252(initialColor22);
   }
@@ -186,8 +193,8 @@ const selectBaggageDe252=() =>{
                                             <article>
                                                 <span className="hora">{item.Departure_time} PM •-• {item.Arrival_time} PM</span>
                                             </article>
-                                            {/* <button className='buttonBaggage' style={{ backgroundColor: equipajeSencillo2}} onClick={selectBaggageSencillo2}><img src={maleta} alt='icon' className='icon' /> 1 objeto personal <br /><span>$17.000 COP</span></button>
-                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeDeMano2 }} onClick={ selectBaggageDeMano2}> <img src={maleta} alt='icon' className='icon' />  Equipaje de mano <br /><span>$20.000 COP</span></button> */}
+                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeSencillo2}} onClick={selectBaggageSencillo2}><img src={maleta} alt='icon' className='icon' /> 1 objeto personal <br /><span>$17.000 COP</span></button>
+                                            <button className='buttonBaggage' style={{ backgroundColor: equipajeDeMano2 }} onClick={ selectBaggageDeMano2}> <img src={maleta} alt='icon' className='icon' />  Equipaje de mano <br /><span>$20.000 COP</span></button>
                                             <button className='buttonBaggage' style={{ backgroundColor: equipajeDe252 }} onClick={ selectBaggageDe252}> <img src={maleta} alt='icon' className='icon' />  Equipaje 25kg <br /><span>$25.000 COP</span></button>
                                         {/* {  baggage.map((item) => <button key={item.id} className='buttonBaggage' style={{ backgroundColor: equipajeDeMano }} onClick={ selectBaggageDeMano} > <img src={item.image} alt='icon' className='icon' /> {item.name} <br /><span>{item.pricetoShow}</span>
                                         </button>)} */}
@@ -222,7 +229,7 @@ const selectBaggageDe252=() =>{
                                 <h4>Costo de vuelo</h4><br />
                                 <div className="costo__vuelos">
                                     <span>Tarifa Base {item.price} </span> <br/>
-                                    <span>Valor equipaje {valorEquipajeS} </span> <br/>
+                                    <span>Valor equipaje {valorEquipajeS}  {valorEquipajeM}  {valorEquipaje25}</span> <br/>
                                     <span>Descuento Promocional {item.Descuento_Pormocional} </span> <br/>
                                     <span>Tarifa Base con Descueento {item.Tarifa_Base_con_Dscto} </span> <br/>
                                     <span>IVA{item.iva} </span> <br/>

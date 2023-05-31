@@ -125,6 +125,13 @@ const SeatSelection = () => {
   // const buttonStyle = {
   //   backgroundColor: colorp,
   // };
+    const [seats, setSeats] = useState(showSeats);
+
+  const handleSeatClick = (index) => {
+    const updatedSeats = [...seats];
+    updatedSeats[index].status = updatedSeats[index].status === 'available' ? 'occupied' : 'available';
+    setSeats(updatedSeats);
+  };
   return (
     <main >
       <span>Selecciona tus asientos</span>
