@@ -9,7 +9,7 @@ import { get } from "../../Services/GetFlights";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { SimpleGrid, Heading, Text, Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
-
+import car from "../../assest/car.png"
 import {
     FormControl,
     FormLabel,
@@ -151,15 +151,32 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
     })
     // Hook de estado para el vuelo sencillo y redondo 
     const [tipoDeVuelo, setTipoDeVuelo] = useState(false);
-    const [bgColor, setBgColor] = useState('white');
+    const initialState = 'false';
+    const [bgColorSencillo, setBgColorSencillo] = useState('white');
+    const [bgColorRedondo, setBgColorRedondo] = useState('white');
+    const initialColor = 'white';
+
 
     const selectVueloSencillo = () => {
-        const newColor = "rgb(161, 43, 136)";
-        setBgColor(newColor);
-        setTipoDeVuelo(true)
+        if (bgColorSencillo === initialColor) {
+            setBgColorSencillo("rgb(161, 43, 136)");
+          } else {
+            setBgColorSencillo(initialColor);
+          }
+          if (tipoDeVuelo === initialState) {
+            setTipoDeVuelo("true");
+          } else {
+            setTipoDeVuelo("false");
+          }
+        // setTipoDeVuelo(true)
     }
     const selectVueloRedondo = () => {
-        setTipoDeVuelo(false)
+        if (bgColorRedondo === initialColor) {
+            setBgColorRedondo("rgb(161, 43, 136)");
+          } else {
+            setBgColorRedondo(initialColor);
+          }
+        setTipoDeVuelo(false);
     }
     // Función que compara la información del formulario con la de la data
     async function compararInformacion() {
@@ -229,6 +246,35 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
 
         }
     }
+
+    const servicesCards= [
+        {
+        image: car,
+        title: "Transporte",
+        info: "Renta un auto o reserva un shuttle",
+        },
+        {
+        image: "https://cms.volaris.com/globalassets/1nextgen/externalproducts/hoveryavas.svg",
+        title: "Vuelo + Hotel",
+        info: "Encuentra las mejores ofertas para tu viaje.",
+        },
+        {
+        image: "https://cms.volaris.com/globalassets/1nextgen/externalproducts/hovergroups.svg",
+        title: "Grupos",
+        info: "Obtén una cotización para grupos de más de 9 personas.",
+        },
+        {
+        image: "https://cms.volaris.com/globalassets/1nextgen/externalproducts/hoverhotels.svg",
+        title: "Hoteles",
+        info: "Reserva una habitación en cualquier parte del mundo.",
+        },
+        {
+        image: "https://cms.volaris.com/globalassets/1nextgen/externalproducts/hovercargo.svg",
+        title: "Carga",
+        info: "Contamos con servicio de carga y mensajería.",
+        },
+        ]
+
     return (
     <div className="mainHome">
     <section className="mainHome__containerForm">
@@ -243,8 +289,8 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         {/* <FormControl w="25%" > */}
                         <FormLabel className="form__label" >Descubre vuelos al mejor precio y perfectos para cualquier viaje </FormLabel>
                         <Stack className="form__selectVuelo" direction='row' spacing={4} w="50%" >
-                            <span onClick={selectVueloSencillo}>Viaje sencillo </span>
-                            <span onClick={selectVueloRedondo}>Viaje redondo</span>
+                            <span style={{ backgroundColor:  bgColorSencillo }} onClick={selectVueloSencillo} >Viaje sencillo </span>
+                            <span  style={{ backgroundColor: bgColorRedondo }} onClick={selectVueloRedondo}>Viaje redondo</span>
                         </Stack>
                         <Stack direction='row' spacing={4} w="90%" className="form__selectCountry">
                             <select value={formik.values.origen} onChange={formik.handleChange} name="origen" className="form__selectOrigin">
@@ -364,6 +410,21 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
             <Stack className="mainHome__containerCards" direction='column'>
                 <h2>Servicios disponibles</h2>
                 <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+{servicesCards.map((item, index) => <Card key={item.index} className= "card" w="75%">
+                        <CardHeader>
+                            <Heading size='md'> 
+                            <img src="{item.image}" alt="{item.tittle}"/></Heading>
+                        </CardHeader>
+                        <CardBody>
+                            <Text className="cardTittle">{item.title}</Text>
+                        </CardBody>
+                        <CardFooter>
+                        <Text  className="cardP">{item.info}</Text>
+                        </CardFooter>
+                    </Card>
+)}
+</SimpleGrid>
+                {/* <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
                     <Card className= "card" w="75%">
                         <CardHeader>
                             <Heading size='md'> 
@@ -426,7 +487,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         <Text  className="cardP">Contamos con servicio de carga y mensajería.</Text>
                         </CardFooter>
                     </Card>
-                </SimpleGrid>
+                </SimpleGrid> */}
             </Stack>
     </div>)
 

@@ -85,22 +85,46 @@ const SeatSelection = () => {
   //   </button>
   // );
 
-  const [seatse, setSeatse] = useState(get1);
+  // const [seatse, setSeatse] = useState(get1);
 
-  const handleSeatClick = (seatId) => {
-    setSeatse((prevSeats) => {
-      return prevSeats.map((seat) => {
-        if (seat.id === seatId) {
-          return {
-            ...seat,
-            occupied: !seat.occupied,
-          };
-        }
-        return seat;
-      });
-    });
-  };
+  // const handleSeatClick = (seatId) => {
+  //   setSeatse((prevSeats) => {
+  //     return prevSeats.map((seat) => {
+  //       if (seat.id === seatId) {
+  //         return {
+  //           ...seat,
+  //           occupied: !seat.occupied,
+  //         };
+  //       }
+  //       return seat;
+  //     });
+  //   });
+  // };
+  const [colorp, setColorp] = useState([]);;
+  // const initialColor = 'white';
 
+  useState(() => {
+    setColorp(showSeats.map((item) => item.status === "available" ? 'white' :'rgb(192, 189, 189)'));
+  }, []);
+
+  // const handleClick = (index) => {
+  //   const newColors = [...colorp];
+  //   newColors[index] = newColors[index] === 'white' ? 'rgb(161, 43, 136)' : 'white';
+  //   setColorp(newColors);
+  // };
+  // const handleClick = () => {
+  //   if (colorp === initialColor) {
+  //     setColorp('rgb(161, 43, 136)');
+  //     console.log("hice clic")
+  //   } else {
+  //     setColorp(initialColor);
+  //     console.log("hice clic else")
+  //   }
+
+  // };
+  // const buttonStyle = {
+  //   backgroundColor: colorp,
+  // };
   return (
     <main >
       <span>Selecciona tus asientos</span>
@@ -121,12 +145,15 @@ const SeatSelection = () => {
           {
             showSeats.map((seats, index) =>
               <button key={seats.id} 
-              onClick={() => handleSeatClick(seats.id)}
+             
+              //  style={{ backgroundColor: colorp }} onClick={handleClick}
                 // onClick={handleClick}
                 // onMouseUp={handleMouseUp}
                 style={{
-                  backgroundColor: seats.status === "available" ? 'white' :'rgb(192, 189, 189)',
+                  backgroundColor: seats.status === "available" ? 'white' :'rgb(192, 189, 189)', 
+                  // ...buttonStyle
                 }}
+                // onClick={handleClick}
                 >
 
                 </button>
