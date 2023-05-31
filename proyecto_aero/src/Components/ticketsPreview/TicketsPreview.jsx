@@ -214,6 +214,7 @@ const selectBaggageDe252=() =>{
                                         <span>__</span>
                                         <span>{item.Destination_city} <br /> {item.Departure_time} </span>
                                     </div>
+                                        <span className='fecha'> {item.Departure_date} , {item.Departure_time} PM</span>
 
                                     {/* 
                                     <span>{item.Origin_city} __ {item.Destination_city}</span><br />
@@ -230,16 +231,16 @@ const selectBaggageDe252=() =>{
                                 <div className="costo__vuelos">
                                     <span>Tarifa Base {item.price} </span> <br/>
                                     <span>Valor equipaje {valorEquipajeS}  {valorEquipajeM}  {valorEquipaje25}</span> <br/>
-                                    <span>Descuento Promocional {item.Descuento_Pormocional} </span> <br/>
-                                    <span>Tarifa Base con Descueento {item.Tarifa_Base_con_Dscto} </span> <br/>
+                                    <span>Dscto Promocional {item.Descuento_Pormocional} </span> <br/>
+                                    <span>Tarifa Base con Dscto {item.Tarifa_Base_con_Dscto} </span> <br/>
                                     <span>IVA{item.iva} </span> <br/>
                                     <span className='totalTickets'>Total {item.Price} </span> 
                                 </div>
-                                <h4>Costo de vuelo</h4><br />
+                                <h4>Servicios Adicionales</h4><br />
                                 <div className="costo__vuelos">
                                     <span>Selecciona tu asiento </span> <br/>
                                     <span>IVA Servicios </span> <br/>
-                                    <span>Total </span> <br/>
+                                    <span><strong>Total </strong></span> <br/>
                                     
                                 </div>
                                 <button className='buttonSeat'  onClick={goSeatSelect}>Seleccionar Asientos</button>
