@@ -4,6 +4,7 @@ import "./ticketsP.scss"
 import { useNavigate } from 'react-router-dom'
 // import { get } from "../../Services/GetFlights"
 import maleta from "../../assest/maleta.png"
+import iconLine from "../../assest/icon-line2.jpeg"
 
 const TicketsPreview = ({ origen, destino, salida, regreso, pasajeros, handleVuelo }) => {
     const getInfoVuelo = JSON.parse(sessionStorage.getItem('idVuelo'));
@@ -69,6 +70,10 @@ const selectBaggageSencillo=() =>{
         setEquipajeSencillo(initialColor);
     }
 }
+
+
+
+
 //hock de estado para asignar el valor del equipaje sencillo 
 // const [valorEquipajeS, setValorEquipajeS] = useState();
 // // Hook de estado para el clic en el equipaje sencillo 2
@@ -125,6 +130,8 @@ const selectBaggageDe252=() =>{
 }
 
 
+
+
     return (
         <>
 
@@ -148,8 +155,8 @@ const selectBaggageDe252=() =>{
                                     <span className='select'> Selección de Horario y Equipajes </span>
                                     <div className='equipaje'>
 
-                                        <article>
-                                            <span className="hora">{item.Departure_time} PM - {item.Arrival_time} PM</span>
+                                        <article className='bloqueHora'>
+                                            <span className="hora">{item.Departure_time} PM •-• {item.Arrival_time} PM</span>
                                         </article>
 
 
@@ -177,7 +184,7 @@ const selectBaggageDe252=() =>{
                                         <span className="select">Seleccion de horarios y equipajes </span>
                                         <div className="equipaje">
                                             <article>
-                                                <span className="hora">{item.Departure_time} PM - {item.Arrival_time} PM</span>
+                                                <span className="hora">{item.Departure_time} PM •-• {item.Arrival_time} PM</span>
                                             </article>
                                             {/* <button className='buttonBaggage' style={{ backgroundColor: equipajeSencillo2}} onClick={selectBaggageSencillo2}><img src={maleta} alt='icon' className='icon' /> 1 objeto personal <br /><span>$17.000 COP</span></button>
                                             <button className='buttonBaggage' style={{ backgroundColor: equipajeDeMano2 }} onClick={ selectBaggageDeMano2}> <img src={maleta} alt='icon' className='icon' />  Equipaje de mano <br /><span>$20.000 COP</span></button> */}
@@ -220,6 +227,13 @@ const selectBaggageDe252=() =>{
                                     <span>Tarifa Base con Descueento {item.Tarifa_Base_con_Dscto} </span> <br/>
                                     <span>IVA{item.iva} </span> <br/>
                                     <span className='totalTickets'>Total {item.Price} </span> 
+                                </div>
+                                <h4>Costo de vuelo</h4><br />
+                                <div className="costo__vuelos">
+                                    <span>Selecciona tu asiento </span> <br/>
+                                    <span>IVA Servicios </span> <br/>
+                                    <span>Total </span> <br/>
+                                    
                                 </div>
                                 <button className='buttonSeat'  onClick={goSeatSelect}>Seleccionar Asientos</button>
                             </aside>
