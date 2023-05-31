@@ -30,7 +30,7 @@
             position: absolute;
             // top: 520px;
             // left: 330px;
-            top: 15%;
+            top: 9%;
             left: 10%;
             display: flex;
             gap: 3%;
@@ -41,7 +41,7 @@
             // height: 70%;
             width: 25%;
             height: 30%;
-            background-color: rgb(223, 221, 229);
+            background-color: rgb(235, 233, 240);
             justify-content: stretch;
 
             legend {
@@ -147,6 +147,7 @@
 
         &__container {
             display: flex;
+        
             justify-content: flex-start;
             gap: 35%;
             border-radius: 15px;
@@ -155,7 +156,7 @@
             align-items: center;
 
             &__cards {
-                gap: 10%;
+                gap: 15%;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -177,7 +178,7 @@
 
     &__containerCards {
         display: flex;
-        width: 66%;
+        width: 80%;
         justify-content: space-around;
 
         h2 {

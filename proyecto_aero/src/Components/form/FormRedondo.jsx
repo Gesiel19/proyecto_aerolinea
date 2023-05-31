@@ -409,7 +409,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
             </section >
             <Stack className="mainHome__containerCards" direction='column'>
                 <h2>Servicios disponibles</h2>
-                <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+                {/* <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
 {servicesCards.map((item, index) => <Card key={item.index} className= "card" w="75%">
                         <CardHeader>
                             <Heading size='md'> 
@@ -423,8 +423,8 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         </CardFooter>
                     </Card>
 )}
-</SimpleGrid>
-                {/* <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+</SimpleGrid> */}
+                <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
                     <Card className= "card" w="75%">
                         <CardHeader>
                             <Heading size='md'> 
@@ -487,7 +487,7 @@ const FormRedondo = ({ origen, destino, salida, regreso, pasajeros, handleVuelo 
                         <Text  className="cardP">Contamos con servicio de carga y mensajería.</Text>
                         </CardFooter>
                     </Card>
-                </SimpleGrid> */}
+                </SimpleGrid>
             </Stack>
     </div>)
 
